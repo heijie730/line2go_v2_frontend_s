@@ -1,0 +1,9 @@
+.icon-link > .bi {
+  margin-top: .125rem;
+  margin-left: .125rem;
+  fill: currentcolor;
+  transition: transform .25s ease-in-out;
+}
+.icon-link:hover > .bi {
+  transform: translate(.25rem);
+}

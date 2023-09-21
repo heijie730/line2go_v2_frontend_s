@@ -1,0 +1,124 @@
+<div class="container">
+  <div class="row border-bottom"
+       style="padding-bottom: 0.8rem;text-align: center;
+       padding-top: 1rem!important; position: sticky;top: 0;background-color: white;z-index: 1000">
+    <div class="col-2">
+      <i class="bi bi-chevron-left" [routerLink]="['/leader/dashboard-template-list',queueId]"></i>
+    </div>
+    <div class="col-2">
+
+    </div>
+    <div class="col text-center">
+      <h6 class="mb-0">{{title}}</h6>
+    </div>
+    <div class="col-2">
+      <i *ngIf="index" class="bi bi-box-arrow-up-right" (click)="copyUrl()"></i>
+    </div>
+    <div class="col-2">
+      <i class="bi bi-arrow-down-up" data-bs-toggle="dropdown"
+         aria-expanded="false"
+         data-bs-auto-close="outside"></i>
+      <div class="dropdown-menu" style="padding-top: unset;">
+        <label class="form-control">Configuration File
+          <app-tool-tip [content]="'Configuration file can be imported, exported, or edited'"></app-tool-tip>
+        </label>
+        <textarea style="background-color: antiquewhite;" class="form-control" [(ngModel)]="currentTemplateJson"
+                  rows="15" cols="50"></textarea>
+        <div class="btn-group mt-2 d-flex justify-content-center" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-success" (click)="submit();">Save</button>
+          <button type="button" class="btn btn-secondary" (click)="copyJson();">Copy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-3 mt-3">
+    <label class="form-label">Template Name</label>
+    <input type="text" class="form-control" [(ngModel)]="currentTemplate.title">
+  </div>
+  <div class=" mb-3">
+    <div class="input-group mb-3">
+      <span class="input-group-text">Width:</span>
+      <input type="number" class="form-control"
+             [(ngModel)]="currentTemplate.width">
+      <span class="input-group-text">px</span>
+      <span class="input-group-text">Height:</span>
+      <input type="number" class="form-control"
+             [(ngModel)]="currentTemplate.height">
+      <span class="input-group-text">px</span>
+    </div>
+  </div>
+  <app-accordion [header]="'Background Image'">
+    <label class="form-label">Background Image</label>
+    <app-user-upload
+      [userImage]="currentTemplate"></app-user-upload>
+  </app-accordion>
+
+  <app-accordion [header]="'Component List'">
+    <div class="list-container">
+      <ul class="list-group">
+        <li *ngFor="let item of currentTemplate.dashboardItemList;index as i"
+            class="list-group-item d-flex align-items-center">
+          <div class="flex-grow-1">
+            {{item.title}}
+          </div>
+          <button class="btn btn-primary ml-2" (click)="updateDashboardItemItem(item,i)">
+            <i class="bi bi-pencil"></i>
+          </button>
+          <button class="btn btn-danger ml-2" (click)="removeDashboardItemItem(item)">
+            <i class="bi bi-trash"></i>
+          </button>
+        </li>
+      </ul>
+    </div>
+    <button class="mt-1 btn btn-sm btn-primary float-right" (click)="addItem()">
+      <i class="bi bi-plus"></i> Add New
+    </button> <app-tool-tip [content]="'If the added component cannot be found in the dashboard, try changing the component\'s offset'"></app-tool-tip>
+  </app-accordion>
+
+</div>
+<div class="d-grid  gap-2 col-6 mx-auto mb-5 mt-5">
+  <button class="btn btn-primary" type="button" (click)="submit()">Save</button>
+  <button *ngIf="index" class="btn btn-danger" type="button" (click)="delete()">Delete</button>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="dashboardItemModal" data-bs-backdrop="static" data-bs-keyboard="false"
+     tabindex="-1" aria-labelledby="dashboardItemModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5"
+            id="dashboardItemModalLabel">{{currentDashboardItemIndex != null ? 'Edit' : 'Add'}}
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="currentDashboardItem.dashboardItemEnum==='CUSTOM_CONTENT'">
+          <app-save-custom-content-item
+            [dashboardItem]="currentDashboardItem"
+          ></app-save-custom-content-item>
+        </div>
+        <div *ngIf="currentDashboardItem.dashboardItemEnum==='USER_IMAGE'">
+          <app-save-user-image-item
+            [dashboardItem]="currentDashboardItem"
+          ></app-save-user-image-item>
+        </div>
+        <div *ngIf="currentDashboardItem.dashboardItemEnum==='TICKET_TAKEN_LIST'">
+          <app-save-ticket-taken-list-item
+            [dashboardItem]="currentDashboardItem"
+            [queueVo]="queueVo"
+          ></app-save-ticket-taken-list-item>
+        </div>
+        <div *ngIf="currentDashboardItem.dashboardItemEnum==='BOARD_CAST'">
+          <app-save-board-cast-item
+            [dashboardItem]="currentDashboardItem" [queueVo]="queueVo"></app-save-board-cast-item>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary"
+                (click)="submitDashboardItem()">{{currentDashboardItemIndex != null ? 'Save' : 'Add'}}</button>
+      </div>
+    </div>
+  </div>
+</div>

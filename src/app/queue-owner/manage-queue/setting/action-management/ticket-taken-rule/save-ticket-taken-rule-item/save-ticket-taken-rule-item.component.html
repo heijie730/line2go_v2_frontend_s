@@ -1,0 +1,483 @@
+<div class="container">
+  <div class="row border-bottom" style="padding-bottom: 0.8rem; text-align: center;
+       padding-top: 1rem!important; position: sticky; top: 0; background-color: white; z-index: 1000">
+    <div class="col-2">
+      <i class="bi bi-chevron-left" [routerLink]="['/leader/ticket-taken-rule',queueId]"></i>
+    </div>
+    <div class="col text-center">
+      <h6 class="mb-0">{{title}}</h6>
+    </div>
+    <div class="col-2">
+      <div *ngIf="index">
+        <i class="bi bi-plus-lg" data-bs-toggle="dropdown" aria-expanded="false"></i>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" (click)="delete()">Delete</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="text-center" style="padding-top: 1rem!important;">
+    <div class="lead">Triggered when users attempt to take a ticket</div>
+  </div>
+  <div class="row mt-3">
+    <div class="mb-3">
+      <label class="form-label">Template Name</label>
+      <input type="text" class="form-control" [(ngModel)]="currentItem.title">
+    </div>
+  </div>
+
+  <app-accordion [header]="'Email Configuration'">
+    <label class="form-label">Email Title</label>
+    <input type="text" class="form-control" [(ngModel)]="currentItem.afterTicketTaken.emailMsg.title">
+    <app-custom-notification-template [baseNotification]="currentItem.afterTicketTaken.emailMsg"
+                                      [queueVo]="queueVo"
+    [templateType]="TemplateType.EMAIL_MSG"></app-custom-notification-template>
+    <div class="mb-1">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox"
+               [(ngModel)]="currentItem.afterTicketTaken.emailMsg.enable" id="enableEmailNotificationSwitch">
+        <label class="form-check-label" for="enableEmailNotificationSwitch">Enable</label>
+      </div>
+    </div>
+  </app-accordion>
+  <div class=" row  mb-3">
+    <div class="accordion" id="accordionWithTags">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingWithTags">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseWithTags" aria-expanded="true" aria-controls="collapseWithTags">
+            Tag Configuration
+          </button>
+        </h2>
+        <div id="collapseWithTags" class="accordion-collapse collapse" aria-labelledby="headingWithTags"
+             data-bs-parent="#accordionWithTags">
+          <div class="accordion-body">
+            <app-select-tag *ngIf="queueVo" [title]="'Tagging After Ticket Taken'"
+                            [tags]="currentItem.afterTicketTaken.ticketTags"
+                            [queue]="queueVo"
+                            (tagsChange)="currentItem.afterTicketTaken.ticketTags = $event"
+            ></app-select-tag>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-accordion [header]="'Username Configuration'">
+    <app-select-tag *ngIf="queueVo"
+                    [title]="'Designate Username Tags for Questionnaires, Used to Obtain Usernames for Future Use'"
+                    [tags]="currentItem.afterTicketTaken.userNameTags"
+                    [queue]="queueVo"
+                    (tagsChange)="currentItem.afterTicketTaken.userNameTags = $event"
+    ></app-select-tag>
+  </app-accordion>
+
+  <div class=" row  mb-3">
+    <div class="accordion" id="accordionWithSameTags">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingWithSameTags">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseWithSameTags" aria-expanded="true" aria-controls="collapseWithSameTags">
+            Quota Tag Ticket Rule
+          </button>
+        </h2>
+        <div id="collapseWithSameTags" class="accordion-collapse collapse" aria-labelledby="headingWithSameTags"
+             data-bs-parent="#accordionWithTags">
+          <div class="accordion-body">
+            <label class="form-label">Rule Check Triggered When User Attempts to Take a Ticket</label>
+            <!-- list.component.html -->
+            <div class="list-container">
+              <ul class="list-group">
+                <li *ngFor="let item of currentItem.beforeTicketTaken.ticketTakenSameTagRulePos; index as i"
+                    class="list-group-item d-flex align-items-center">
+                  <div class="flex-grow-1">
+                    <span class="badge" [style.background-color]="tag.color"
+                          *ngFor="let tag of item.tags;">{{tag.tagContent}}</span>
+                  </div>
+                  <button class="btn btn-primary ml-2" (click)="updateSameTagItem(item, i)">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button class="btn btn-danger ml-2" (click)="removeSameTagItem(item)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </li>
+              </ul>
+              <button class="btn btn-primary float-right" (click)="addSameTagItem()">
+                <i class="bi bi-plus"></i> Add Rule
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-accordion [header]="'Ticket Taken Date'">
+    <div class="list-container">
+      <ul class="list-group">
+        <li *ngFor="let item of currentItem.beforeTicketTaken.ticketTakenDateRangeRulePos; index as i"
+            class="list-group-item d-flex align-items-center">
+          <span class="flex-grow-1">{{ item.title}}</span>
+          <button class="btn btn-primary ml-2" (click)="updateDateRangeItem(item, i)">
+            <i class="bi bi-pencil"></i>
+          </button>
+          <button class="btn btn-danger ml-2" (click)="removeDateRangeItem(item)">
+            <i class="bi bi-trash"></i>
+          </button>
+        </li>
+      </ul>
+      <button class="btn btn-primary float-right" (click)="addDateRangeItem()">
+        <i class="bi bi-plus"></i> Add Rule
+      </button>
+    </div>
+  </app-accordion>
+
+  <div class="row mb-3">
+    <div class="accordion" id="accordionWithTimeRange">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingWithTimeRange">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseWithTimeRange" aria-expanded="true" aria-controls="collapseWithTimeRange">
+            Ticket Taken Time
+          </button>
+        </h2>
+        <div id="collapseWithTimeRange" class="accordion-collapse collapse" aria-labelledby="headingWithTimeRange"
+             data-bs-parent="#accordionWithTags">
+          <div class="accordion-body">
+            <label class="form-label">Rule Check Triggered When User Attempts to Take a Ticket</label>
+            <div class="list-container">
+              <ul class="list-group">
+                <li *ngFor="let item of currentItem.beforeTicketTaken.ticketTakenTimeRangeRulePos; index as i"
+                    class="list-group-item d-flex align-items-center">
+                  <span class="flex-grow-1">{{ item.startTime + '-' + item.endTime }}</span>
+                  <button class="btn btn-primary ml-2" (click)="updateTimeRangeItem(item, i, timeRangeModal)">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button class="btn btn-danger ml-2" (click)="removeTimeRangeItem(item)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </li>
+              </ul>
+              <button class="btn btn-primary float-right" (click)="addTimeRangeItem(timeRangeModal)">
+                <i class="bi bi-plus"></i> Add Rule
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-accordion [header]="'Ticket Usage Date Configuration'">
+    <div class="list-container">
+      <ul class="list-group">
+        <li *ngFor="let item of currentItem.beforeTicketTaken.ticketDateRulePos; index as i"
+            class="list-group-item d-flex align-items-center">
+          <span class="flex-grow-1">{{ item.title}}</span>
+          <button class="btn btn-primary ml-2" (click)="updateTicketDateItem(item, i)">
+            <i class="bi bi-pencil"></i>
+          </button>
+          <button class="btn btn-danger ml-2" (click)="removeTicketDateItem(item)">
+            <i class="bi bi-trash"></i>
+          </button>
+        </li>
+      </ul>
+      <button class="btn btn-primary float-right" (click)="addTicketDateItem()">
+        <i class="bi bi-plus"></i> Add Rule
+      </button>
+    </div>
+  </app-accordion>
+
+  <div class="row mb-3">
+    <div class="accordion" id="accordionWithPassword">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingWithPassword">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseWithPassword" aria-expanded="true" aria-controls="collapseWithPassword">
+            Ticket Password Settings
+          </button>
+        </h2>
+        <div id="collapseWithPassword" class="accordion-collapse collapse" aria-labelledby="headingWithPassword"
+             data-bs-parent="#accordionWithTags">
+          <div class="accordion-body">
+            <label class="form-label">Ticket Password Settings</label>
+            <div class="list-container">
+              <ul class="list-group">
+                <li *ngFor="let item of currentItem.beforeTicketTaken.ticketTakenPasswordRulePos; index as i"
+                    class="list-group-item d-flex align-items-center">
+                  <div class="flex-grow-1">
+                  <span class="badge" [style.background-color]="tag.color"
+                        *ngFor="let tag of item.tags;">{{tag.tagContent}}</span>
+                  </div>
+                  <button class="btn btn-primary ml-2" (click)="updatePasswordItem(item, i)">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button class="btn btn-danger ml-2" (click)="removePasswordItem(item)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </li>
+              </ul>
+              <button class="btn btn-primary float-right" (click)="addPasswordItem()">
+                <i class="bi bi-plus"></i> Add Rule
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="accordion" id="accordionWithTicketMsg">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingWithTicketMsg">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseWithTicketMsg" aria-expanded="true" aria-controls="collapseWithTicketMsg">
+             Ticket Remark Information Configuration
+          </button>
+        </h2>
+        <div id="collapseWithTicketMsg" class="accordion-collapse collapse" aria-labelledby="headingWithTicketMsg"
+             data-bs-parent="#accordionWithTags">
+          <div class="accordion-body">
+            <label class="form-label">Triggered After Successful Ticket Retrieval
+              <app-tool-tip [content]="'Will append the information to the ticket remark'"></app-tool-tip>
+            </label>
+            <app-ticket-msg [ticketMsgManager]="currentItem.afterTicketTaken.ticketMsgManager"></app-ticket-msg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="d-grid gap-2 col-6 mx-auto mt-3 mb-3">
+  <button class="btn btn-primary" type="button" (click)="submit()">Save</button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="userTicketTakenSameTagModal" data-bs-backdrop="static" data-bs-keyboard="false"
+     tabindex="-1" aria-labelledby="userTicketTakenSameTagModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5"
+            id="userTicketTakenSameTagModalLabel">{{currentSameTagIndex != null ? 'Edit Rule' : 'Add Rule'}}
+          <app-tool-tip
+            [content]="'A user can only get a ticket with the specified usage date, a specific number of times, and containing the specified tag. When the limit is reached, they cannot take a ticket.'"></app-tool-tip>
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Rule Name</label>
+          <input type="text" class="form-control" [(ngModel)]="currentSameTag.title">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Maximum Limit</label>
+          <input type="number" class="form-control" [(ngModel)]="currentSameTag.allowTakenCount">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Limit Tag</label>
+          <div class="form-check" *ngFor="let tagVo of currentSameTagVos; index as i">
+            <input class="form-check-input" type="checkbox" value="" id="color-check-same-tag-{{i}}"
+                   [(ngModel)]="tagVo.checked">
+            <label class="form-check-label" for="color-check-same-tag-{{i}}">
+              <span class="badge" [style.background-color]="tagVo.color">{{tagVo.tagContent}}</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary"
+                (click)="submitSameTagRule()">{{currentSameTagIndex != null ? 'Save' : 'Add'}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="userTicketTakenPasswordModal" data-bs-backdrop="static" data-bs-keyboard="false"
+     tabindex="-1" aria-labelledby="userTicketTakenPasswordModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5"
+            id="userTicketTakenPasswordModalLabel">{{currentPasswordIndex != null ? 'Edit Rule' : 'Add Rule'}}
+          <app-tool-tip
+            [content]="'For open-ended questions matched by password tags, the password must match in order to queue.'"></app-tool-tip>
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Rule Name</label>
+          <input type="text" class="form-control" [(ngModel)]="currentPassword.title">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Delimiter</label>
+          <app-clipboard [value]="currentPassword.delimiter"></app-clipboard>
+          <input type="text" class="form-control" [(ngModel)]="currentPassword.delimiter">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Password
+            <app-tool-tip [content]="'Separate multiple passwords with delimiter'"></app-tool-tip>
+          </label>
+          <input type="text" class="form-control" [(ngModel)]="currentPassword.password">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Password Tags</label>
+          <div class="form-check" *ngFor="let tagVo of currentPasswordVos; index as i">
+            <input class="form-check-input" type="checkbox" value="" id="color-check-password-tag-{{i}}"
+                   [(ngModel)]="tagVo.checked">
+            <label class="form-check-label" for="color-check-password-tag-{{i}}">
+              <span class="badge" [style.background-color]="tagVo.color">{{tagVo.tagContent}}</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary"
+                (click)="submitPasswordRule()">{{currentPasswordIndex != null ? 'Save' : 'Add'}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="userTicketTakenVIPModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="userTicketTakenVIPModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5"
+            id="userTicketTakenVIPModalLabel">{{currentVIPIndex != null ? 'Edit Rule' : 'Add Rule'}}
+          <app-tool-tip [content]="'If a ticket contains the specified tag, the user can directly take a ticket next time, regardless of other rules.'"></app-tool-tip>
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Rule Name</label>
+          <input type="text" class="form-control" [(ngModel)]="currentVIP.title">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Tag</label>
+          <div class="form-check" *ngFor="let tagVo of currentVIPVos; index as i">
+            <input class="form-check-input" type="checkbox" value="" id="color-check-vip{{i}}"
+                   [(ngModel)]="tagVo.checked">
+            <label class="form-check-label" for="color-check-vip{{i}}">
+              <span class="badge" [style.background-color]="tagVo.color">{{tagVo.tagContent}}</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary"
+                (click)="submitVIPRule()">{{currentVIPIndex != null ? 'Save' : 'Add'}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #timeRangeModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{currentTimeRangeIndex != null ? 'Edit Rule' : 'Add Rule'}}
+      <app-tool-tip [content]="'Users can only take tickets within the specified time range.'"></app-tool-tip>
+    </h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="mb-3">
+      <label class="form-label">Rule Name</label>
+      <input type="text" class="form-control" [(ngModel)]="currentTimeRange.title">
+    </div>
+    <div class="mb-3">
+      <app-time-range *ngIf="currentTimeRange" [timeRange]="currentTimeRange"></app-time-range>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="c('Save click')">Close</button>
+    <button type="button" class="btn btn-primary"
+            (click)="submitTimeRangeRule()">{{currentTimeRangeIndex != null ? 'Save' : 'Add'}}</button>
+  </div>
+</ng-template>
+
+<!-- Modal -->
+<div class="modal fade" id="userTicketTakenDateRangeModal" data-bs-backdrop="static" data-bs-keyboard="false"
+     tabindex="-1" aria-labelledby="userTicketTakenDateRangeModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5"
+            id="userTicketTakenDateRangeModalLabel">{{currentDateRangeIndex != null ? 'Edit Rule' : 'Add Rule'}}
+          <app-tool-tip [content]="'Users can only take tickets on specified dates. If there are no available types.'"></app-tool-tip>
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Rule Name</label>
+          <input type="text" class="form-control" [(ngModel)]="currentDateRange.title">
+        </div>
+        <div class="mb-3">
+          <label for="dateRangeEnum" class="form-label">Type</label>
+          <select [disabled]="currentDateRangeIndex!=null" id="dateRangeEnum" class="form-select"
+                  aria-label="Default select example"
+                  [(ngModel)]="currentDateRange.dateRangeEnum">
+            <option value="ANY">Any Date</option>
+            <option value="MULTIPLE_DATE">Specific Dates</option>
+            <option value="RANGE_DATE">Date Range</option>
+          </select>
+        </div>
+        <app-date-select [dateRangeRulePo]="currentDateRange" [queueVo]="queueVo">
+        </app-date-select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary"
+                (click)="submitDateRangeRule()">{{currentDateRangeIndex != null ? 'Save' : 'Add'}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="userTicketDateModal" data-bs-backdrop="static" data-bs-keyboard="false"
+     tabindex="-1" aria-labelledby="userTicketDateModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5"
+            id="userTicketDateModalLabel">{{currentTicketDateIndex != null ? 'Edit Rule' : 'Add Rule'}}
+          <app-tool-tip [content]="'Users can only choose specified usage dates.'"></app-tool-tip>
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Rule Name</label>
+          <input type="text" class="form-control" [(ngModel)]="currentTicketDate.title">
+        </div>
+        <div class="mb-3">
+          <label for="ticketDateEnum" class="form-label">Type</label>
+          <select [disabled]="currentTicketDateIndex!=null" id="ticketDateEnum" class="form-select"
+                  aria-label="Default select example"
+                  [(ngModel)]="currentTicketDate.ticketDateEnum">
+            <option value="ANY">Any Date</option>
+            <option value="MULTIPLE_DATE">Specific Dates</option>
+            <!-- <option value="DAYS_FROM_NOW">Specific days from now</option> -->
+          </select>
+        </div>
+        <app-ticket-date-select [ticketDateRulePo]="currentTicketDate" [queueVo]="queueVo">
+        </app-ticket-date-select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary"
+                (click)="submitTicketDateRule()">{{currentTicketDateIndex != null ? 'Save' : 'Add'}}</button>
+      </div>
+    </div>
+  </div>
+</div>

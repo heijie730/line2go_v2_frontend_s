@@ -1,0 +1,38 @@
+<app-header-v2  [headerName]="'Edit Queue Details'"></app-header-v2>
+<div class="container">
+  <div class="text-center" style="padding-top: 1rem!important;">
+    <p class="lead">Displayed when queue members attempt to get a ticket.
+      <app-tool-tip [content]="'You can add child queue links to the text, and when users click, they will be redirected to that queue. ' +
+       'When uploading images, try to compress their size to allow queue members to open them faster.'"></app-tool-tip>
+    </p>
+  </div>
+</div>
+<div #editor></div>
+
+<div class="d-grid gap-2 col-6 mx-auto mt-3 mb-3">
+  <button class="btn btn-secondary" type="button" (click)="preview()">Preview</button>
+  <button class="btn btn-primary" type="button" (click)="editQueueDesc()">Save</button>
+</div>
+<div class="modal fade" id="previewBackdrop" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="previewBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="previewBackdropLabel">Preview</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <quill-view [content]="queueDesc" format="html" theme="snow"></quill-view>
+
+        <!-- <div class="ql-container ql-snow" style="border-width: 0;">
+          <div id="myEditor" class="ql-editor" [innerHtml]="queueDesc">
+          </div>
+        </div> -->
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

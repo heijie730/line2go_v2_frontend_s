@@ -1,0 +1,12 @@
+<div class="mb-1">
+  <label class="form-label">Message Content</label>
+  <input type="text" class="form-control" [(ngModel)]="ticketMsgManager.content">
+</div>
+<div class="mb-1">
+  <label for="attachTypeEnum" class="form-label">Attachment Type</label>
+  <select id="attachTypeEnum" class="form-select" aria-label="Default select example"
+          [(ngModel)]="ticketMsgManager.attachTypeEnum">
+    <option value="APPEND">Append to Existing Information</option>
+    <option value="REPLACEMENT">Replace Existing Information</option>
+  </select>
+</div>

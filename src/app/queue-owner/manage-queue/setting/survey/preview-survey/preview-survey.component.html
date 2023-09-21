@@ -1,0 +1,47 @@
+<app-header [titleName]="titleName"></app-header>
+<div class="container" style="padding-top: 1rem;">
+  <div class="text-center">
+    <h3>{{surveyVo.survey.name}}</h3>
+    <div >
+      <p class="lead">{{surveyVo.survey.description}}</p>
+    </div>
+  </div>
+<div *ngFor="let page of surveyVo.survey.pages" >
+  <div class="row"  *ngIf="page.elements[0].question.type == QuestionType.SHORT_TEXT">
+    <div class="mb-3">
+      <div>
+<!-- -->
+        <label class="form-label">{{page.elements[0].question.shortText.question}} <span style="color: red">{{page.elements[0].question.required ?"*":""}}</span></label>
+        <input type="text" class="form-control" >
+      </div>
+      <div>
+        <span class="badge"  [style.background-color]="tag.color" *ngFor="let tag of page.elements[0].question.shortText.tags;">{{tag.tagContent}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="page.elements[0].question.type == QuestionType.SINGLE_CHOICE_QUESTION">
+    <div class="mb-3">
+      <label class="form-label">{{page.elements[0].question.singleChoiceQuestion.question}} <span style="color: red">{{page.elements[0].question.required ?"*":""}}</span></label>
+      <div class="form-check" *ngFor="let radioOption of page.elements[0].question.singleChoiceQuestion.radioOptions; ">
+        <input class="form-check-input" type="radio" name="{{page.elements[0].question.name}}" id="{{radioOption.id}}">
+        <label class="form-check-label"  for="{{radioOption.id}}">
+          {{radioOption.text}}
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="page.elements[0].question.type == QuestionType.MULTIPLE_CHOICE_QUESTION">
+    <div class="mb-3">
+      <label class="form-label">{{page.elements[0].question.multipleChoiceQuestion.question}} <span style="color: red">{{page.elements[0].question.required ?"*":""}}</span></label>
+      <div class="form-check" *ngFor="let radioOption of page.elements[0].question.multipleChoiceQuestion.radioOptions; ">
+        <input class="form-check-input"  type="checkbox" name="{{page.elements[0].question.name}}" id="{{radioOption.id}}">
+        <label class="form-check-label"  for="{{radioOption.id}}">
+          {{radioOption.text}}
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div>

@@ -1,0 +1,13 @@
+<div class="mb-3 mt-3">
+  <label for="attachTypeEnum" class="form-label">Template Type</label>
+  <select id="attachTypeEnum" class="form-select" aria-label="Default select example"
+          (change)="onTypeChange($event)"
+          [(ngModel)]="baseNotification.template.templateName">
+    <option value="NONE">None</option>
+    <ng-content select="option"></ng-content>
+  </select>
+</div>
+<app-notification-template [baseNotification]="baseNotification"></app-notification-template>
+<div *ngIf="baseNotification.template.templateName !== 'NONE'">
+  <ng-content></ng-content>
+</div>

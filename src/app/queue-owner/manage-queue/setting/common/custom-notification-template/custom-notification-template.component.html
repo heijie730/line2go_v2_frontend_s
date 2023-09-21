@@ -1,0 +1,77 @@
+<label class="form-label">Template Parameters
+  <app-tool-tip [content]="'Parameters will replace placeholders in the template.'"></app-tool-tip>
+</label>
+<div class="list-container">
+  <ul class="list-group">
+    <li *ngFor="let param of baseNotification.template.notificationParams;index as i"
+        class="list-group-item d-flex align-items-center">
+      <div class="flex-grow-1">
+        <span>{{param.placeholder}} | {{param.name}} | Example: {{param.exampleValue}}</span>
+      </div>
+      <button *ngIf="param.editable" class="btn btn-primary ml-2" (click)="updateNotificationParamItem(notificationParamModal,param,i)">
+        <i class="bi bi-pencil"></i>
+      </button>
+      <button  class="btn btn-danger ml-2"
+              (click)="removeNotificationParamItem(param)">
+        <i class="bi bi-trash"></i>
+      </button>
+    </li>
+  </ul>
+</div>
+<button class="mt-1 btn btn-sm btn-primary float-right" (click)="addNotificationParamItem(notificationParamModal)">
+  <i class="bi bi-plus"></i> Add New
+</button>
+<div class="mt-1 mb-1">
+  <label class="form-label">Template</label>
+  <input type="text" (change)="onBoardCastTemplateChange()" class="form-control"
+         [(ngModel)]="baseNotification.template.template">
+</div>
+<div class="mb-1">
+  <label class="form-label">Preview <i *ngIf="baseNotification.template.templateType=='VOICE_BOARD_CAST'" style="margin-left: 3px" class="bi bi-play-btn"
+                                       (click)="play()"></i></label>
+  <p>{{baseNotification.template.preview}}</p>
+</div>
+
+<ng-template #notificationParamModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{currentNotificationParamIndex != null ? 'Edit Template Parameter' : 'Add Template Parameter'}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="mb-1">
+      <label class="form-label">Parameter Matching Tags
+        <app-tool-tip [content]="'Check the tags and select the same tags in the questionnaire\'s fill-in-the-blank questions to replace the parameter placeholders.'"></app-tool-tip>
+      </label>
+      <div class="form-check" *ngFor="let tagVo of currentNotificationParamTags;index as i">
+        <input class="form-check-input" type="checkbox" value="" id="color-check-display-{{i}}"
+               [(ngModel)]="tagVo.checked">
+        <label class="form-check-label" for="color-check-display-{{i}}">
+          <span class="badge" [style.background-color]="tagVo.color">{{tagVo.tagContent}}</span>
+        </label>
+      </div>
+    </div>
+    <div class="mb-1 mt-1">
+      <label class="form-label mb-0">Parameter Placeholder Tag</label>
+      <div class="input-group">
+        <input type="text" class="form-control"
+               [(ngModel)]="currentNotificationParam.placeholder">
+        <app-clipboard class="input-group-text" [value]="currentNotificationParam.placeholder"></app-clipboard>
+      </div>
+    </div>
+    <div class="mb-1">
+      <label class="form-label mb-0">Parameter Name</label>
+      <input type="text" class="form-control"
+             [(ngModel)]="currentNotificationParam.name">
+    </div>
+    <div class="mb-1">
+      <label class="form-label mb-0">Example Value</label>
+      <input type="text" class="form-control"
+             [(ngModel)]="currentNotificationParam.exampleValue">
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="c('Save click')">Close</button>
+    <button type="button" class="btn btn-primary"
+            (click)="submitNotificationParam()">{{currentNotificationParamIndex != null ? 'Save' : 'Add'}}</button>
+  </div>
+</ng-template>

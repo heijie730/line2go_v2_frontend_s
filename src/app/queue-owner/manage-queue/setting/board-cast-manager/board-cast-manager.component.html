@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row border-bottom" style="padding-bottom: 0.8rem; text-align: center; padding-top: 1rem!important; position: sticky; top: 0; background-color: white; z-index: 1000">
+    <div class="col-2">
+      <i class="bi bi-chevron-left" [routerLink]="['/leader/manage-queue',queueId]"></i>
+    </div>
+    <div class="col text-center">
+      <h6 class="mb-0">Broadcast Settings</h6>
+    </div>
+    <div class="col-2"></div>
+  </div>
+  <div class="mb-3 mt-3">
+    <app-accordion [header]="'Allow Members to Publish Broadcast'" [show]="true">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox"
+               [(ngModel)]="boardCastManager.allowMemberPublishAny" id="allowMemberPublishAny" >
+        <label class="form-check-label" for="allowMemberPublishAny">Enable</label>
+      </div>
+    </app-accordion>
+  </div>
+  <!--  <app-accordion [header]="'Allow Members to Publish Specific Broadcast'">-->
+  <!--    <div class="mb-1" *ngFor="let boardCastQuestion of boardCastManager.boardCastQuestions;index as i">-->
+  <!--      <label for="id-{{i}}" class="form-label">Question {{i+1}}</label>-->
+  <!--      <input type="text" class="form-control" id="id-{{i}}"-->
+  <!--             [(ngModel)]="boardCastQuestion.question">-->
+  <!--    </div>-->
+  <!--    <button class="btn btn-primary btn-sm float-right mt-1 mb-3" (click)="addItem()">-->
+  <!--      <i class="bi bi-plus"></i> Add Question-->
+  <!--    </button>-->
+  <!--    <div class="form-check form-switch">-->
+  <!--      <input class="form-check-input" type="checkbox"-->
+  <!--             [(ngModel)]="boardCastManager.allowMemberPublishSpecify" id="allowMemberPublishSpecify" >-->
+  <!--      <label class="form-check-label" for="allowMemberPublishSpecify">Enable</label>-->
+  <!--    </div>-->
+  <!--  </app-accordion>-->
+
+</div>
+
+<div class="d-grid  gap-2 col-6 mx-auto mb-5 mt-5">
+  <button class="btn btn-primary" type="button" (click)="submit()">Save</button>
+</div>

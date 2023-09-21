@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row border-bottom"
+       style="padding-bottom: 0.8rem; text-align: center;
+       padding-top: 1rem!important; position: sticky; top: 0; background-color: white; z-index: 1000">
+    <div class="col-2">
+      <i class="bi bi-chevron-left" [routerLink]="['/leader/child-queue-list', queueId]"></i>
+    </div>
+    <div class="col text-center">
+      <h6 class="mb-0">My Profile</h6>
+    </div>
+    <div class="col-2">
+      <div>
+        <i class="bi bi-plus-lg" data-bs-toggle="dropdown" aria-expanded="false"></i>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" (click)="open(content)">Change Password</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="queueVo">
+    <div class="text-center" style="padding-top: 1rem!important;">
+      <h4 class="text-center">{{ queueVo.queueName }}</h4>
+    </div>
+    <div class="text-center">
+      <qrcode [qrdata]="queueVo.id"
+              [elementType]="'img'"
+              [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+    </div>
+    <div class="text-center">
+      <h6 class="text-center">Scan to add me as your child queue<app-tool-tip [content]="'You need to go to the Child Queue Management - Child Queue List on the top right corner, and click on the plus sign to choose Scan Child Queue'"></app-tool-tip></h6>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Change Password</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="mb-3">
+      <label class="col-form-label">Password
+        <app-tool-tip [content]="'After setting a password, the other party will need to enter the password to add me as a child queue'"></app-tool-tip>
+      </label>
+      <input type="password" class="form-control" [(ngModel)]="childQueueVo.password">
+    </div>
+    <span style="font-weight: bold">{{ queueVo.childQueueManager.password ? "Password set" : "Password not set" }}</span>
+  </div>
+  <div class="modal-footer">
+    <button *ngIf="queueVo.childQueueManager.password" type="button" class="btn btn-outline-danger" (click)="deletePassword()">Delete Password</button>
+    <button type="button" class="btn btn-outline-dark" (click)="submitPassword()">Confirm</button>
+  </div>
+</ng-template>

@@ -1,0 +1,6 @@
+<app-base-draggable [dashboardEnum]="dashboardEnum"
+                    (deleteTrigger)="deleteTrigger.emit()"
+                    (editTrigger)="editTrigger.emit()"
+                    [dashboardItem]="dashboardItem">
+  <span [style]="'font-size:'+dashboardItem.customContentSetting.fontSize+'px'">{{dashboardItem.customContentSetting.content}}</span>
+</app-base-draggable>

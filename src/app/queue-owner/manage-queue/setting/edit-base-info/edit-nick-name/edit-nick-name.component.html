@@ -1,0 +1,13 @@
+<app-header-v2  [headerName]="'Edit Nickname'"></app-header-v2>
+<div class="text-center" style="padding-top: 1rem!important;">
+  <p class="lead">Edit my nickname.</p>
+</div>
+<div class="container">
+  <div class="mb-3">
+    <label class="form-label">Nickname</label>
+    <input *ngIf="queue" type="text" class="form-control" [(ngModel)]="queue.nickName">
+  </div>
+</div>
+<div class="d-grid gap-2 col-6 mx-auto mt-3 mb-3">
+  <button class="btn btn-primary" type="button" (click)="editNickName()">Save</button>
+</div>

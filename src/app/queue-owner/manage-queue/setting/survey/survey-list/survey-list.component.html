@@ -1,0 +1,71 @@
+<app-header [titleName]="'Survey List'" [lastType]="'addSurvey'"
+            [queueId]="queueId"
+            [secondPath]="'/leader/manage-queue/'+queueId"
+></app-header>
+
+<div class="list-group list-group-checkable d-grid gap-2 border-0 w-auto" *ngIf="queueVo">
+  <div class="container">
+    <div class="row align-items-start"  *ngFor="let surveyVo of surveyVoList">
+      <div class="col-10">
+        <div class="position-relative">
+          <input [checked]="surveyVo.id==queueVo.surveyPoId" class="list-group-item-check pe-none" type="radio"
+                 name="listGroupCheckableRadios" value="">
+          <label class="list-group-item rounded-3 py-3" [routerLink]="[ '/leader/preview-survey',surveyVo.id]">
+            {{surveyVo.survey.name}}
+            <span class="d-block small opacity-50">{{surveyVo.survey.description}}</span>
+          </label>
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="dropdown text-center">
+          <div style="height: 2.5rem;"  data-bs-toggle="dropdown"
+               aria-expanded="false"
+               data-bs-auto-close="outside">
+            <i class="fas fa-chevron-down" style="color: black;"></i>
+          </div>
+          <div class="dropdown-menu dropdown-menu-dark text-small shadow">
+            <label class="dropdown-item">
+              <div class="form-check">
+                <input [ngModel]="surveyVo.id==queueVo.surveyPoId"
+                       (click)="onChange(surveyVo.id,surveyVo.editable,$event)" class="form-check-input" type="checkbox"
+                       id="dropdownCheck2{{surveyVo.id}}">
+                <label class="form-check-label" for="dropdownCheck2{{surveyVo.id}}">
+                  Use
+                </label>
+              </div>
+            </label>
+            <a class="dropdown-item {{surveyVo.editable?'':'disabled'}}"
+               [routerLink]="[ '/leader/build-survey',queueId,surveyVo.id,'edit']">Edit</a>
+            <a class="dropdown-item" (click)="cloneSurvey(surveyVo)">Clone</a>
+            <a class="dropdown-item" [routerLink]="[ '/leader/survey-stats',queueId,surveyVo.id]">Statistics</a>
+            <a class="dropdown-item" (click)="deleteSurvey(surveyVo.id)">Delete</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div *ngIf="surveyVoList">
+  <div *ngIf="surveyVoList.length==0" class="alert alert-info mt-4">
+    <p>No data available.</p>
+  </div>
+</div>
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item">
+      <a class="page-link" aria-label="Previous" [routerLink]="[ '/leader/survey-list',queueId]"
+         [queryParams]="{ page: page-1<0?0:page-1,size}">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="page-item"><a class="page-link" [routerLink]="[ '/leader/survey-list',queueId]"
+                             [queryParams]="{ page: page,size}">{{page + 1}}</a></li>
+    <li class="page-item">
+      <a class="page-link" aria-label="Next" [routerLink]="[ '/leader/survey-list',queueId]"
+         [queryParams]="{ page: page+1,size}">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>

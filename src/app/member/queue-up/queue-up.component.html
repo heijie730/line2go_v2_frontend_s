@@ -1,0 +1,126 @@
+<div class="container" *ngIf="queue">
+  <div class="row border-bottom"
+       style="padding-bottom: 0.8rem;text-align: center;
+       padding-top: 1rem!important; position: sticky;top: 0;background-color: white;z-index: 1000">
+    <div class="col-2">
+      <i class="bi bi-house" [routerLink]="['/member/home']"></i>
+    </div>
+    <div class="col text-center">
+      <h6 class="mb-0">Get a Ticket</h6>
+    </div>
+    <div class="col-2">
+    </div>
+  </div>
+  <div *ngIf="ruleResultVo.ruleFireStatus=='FAIL'">
+    <div class="col-md-6 offset-md-3 mt-5">
+      <div class="card border-danger">
+        <div class="card-header bg-danger text-white">
+          <h3>
+            <span>Unable to Get a Ticket</span>
+          </h3>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            You tried to get a ticket in the <b>{{ruleResultVo.queueName}}</b>,
+            <span *ngIf="ruleResultVo.ruleResultVos.length === 1">
+            Reason for failure:
+          </span>
+            <span *ngIf="ruleResultVo.ruleResultVos.length > 1">
+            Possible reasons for failure:
+          </span>
+          </p>
+          <p class="card-text" *ngFor="let item of ruleResultVo.ruleResultVos">
+            <b>{{item.remark}}</b>
+          </p>
+          <p class="card-text" *ngIf="queue">Please try again or contact {{queue.nickName}}.</p>
+          <button class="btn btn-primary"
+                  [routerLink]="['/member/home']">
+            View Existing Tickets
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="ruleResultVo.ruleFireStatus=='SUCCESS'">
+    <quill-view [content]="queueDesc" format="html" theme="snow"></quill-view>
+    <label class="form-label">{{queue.generateTicketManager.ticketDateName}}</label>
+    <app-calendar-select *ngIf="queue" [date]="date"
+                         [ticketTakenRuleItemList]="queue.ticketTakenRuleManager.ticketTakenRuleItemList"
+                         (afterDateChecked)="afterDateChecked($event)"
+    ></app-calendar-select>
+    <label class="form-label">Select Ticket</label>
+    <div class="input-group mb-3" data-bs-toggle="modal" data-bs-target="#ticketModal">
+      <input disabled type="text" class="form-control" [(ngModel)]="ticketNo">
+      <span class="input-group-text">
+        <i *ngIf="!ticketNo" class="bi bi-ticket"></i>
+        <i *ngIf="ticketNo" class="bi bi-ticket-fill"></i>
+      </span>
+      <div class="mt-2" *ngIf="currentTicket&&currentTicket.ticketServiceTime"
+           style="display:block;width:100%;margin-top:.25rem;font-size:.875em;color:#5b931e">
+        {{'Service Time: ' + currentTicket.ticketServiceTime.startTime + '-' + currentTicket.ticketServiceTime.endTime}}
+      </div>
+      <div *ngIf="!ticketNo" class="invalid-feedback" style="display: block">
+        Please select a Ticket
+      </div>
+    </div>
+    <div>
+<!--      <app-switch [isSendStatus]="false" (afterSubscribed)="afterSubscribed()"></app-switch>-->
+    </div>
+    <div class="row mt-3">
+      <p *ngIf="surveyId && !filledSurveyVo">You need to fill out a survey first, <a
+        [routerLink]="[ '/member/fill-survey',queue.id,surveyId,'add']"
+        [queryParams]="{date:date,ticketNo:ticketNo }">click here to fill the survey</a>.</p>
+      <p *ngIf="filledSurveyVo">You have already filled out the survey, <a
+        [routerLink]="[ '/member/fill-survey',queueId,surveyId,'edit']"
+        [queryParams]="{ filledSurveyId:filledSurveyVo.id ,date:date,ticketNo:ticketNo}">
+        click here to edit the survey</a>.</p>
+    </div>
+    <div class="d-grid gap-2 col-6 mx-auto  mt-3 mb-3">
+      <button class="btn btn-success btn-block" (click)="onSubmit()">Submit
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div *ngIf="queue" class="modal fade" id="ticketModal" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="calendarBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Please Select a Ticket</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div style="text-align: -webkit-center;">
+        <div class=" d-block position-static p-2 shadow rounded-3">
+          <div class="d-grid gap-1">
+            <div class="cal">
+              <div class="cal-month">
+                <button class="btn cal-btn" type="button" (click)="addPage(-1)">
+                  <i class="bi bi-arrow-left-short"></i>
+                </button>
+                <strong class="cal-month-name">{{page + 1}}</strong>
+                <button class="btn cal-btn" type="button" (click)="addPage(1)">
+                  <i class="bi bi-arrow-right-short"></i>
+                </button>
+              </div>
+              <span *ngIf="page==0&&ticketVos.length==0&&!queue.allowUserCreateTicket"
+              >No available tickets, please contact {{queue.nickName}} for assistance
+                </span>
+              <div class="cal-days">
+                <button class="btn cal-btn" type="button" *ngIf="page==0&&queue.allowUserCreateTicket"
+                        (click)="chooseTicketNo(null)"
+                >Auto
+                </button>
+
+                <button class="btn cal-btn" type="button"
+                        *ngFor="let ticketVo of ticketVos;"
+                        (click)="chooseTicketNo(ticketVo)"
+                >{{ticketVo.ticketNo}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

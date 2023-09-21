@@ -1,0 +1,16 @@
+<app-header-v2  [headerName]="'Edit Warm Reminder'"></app-header-v2>
+<div class="container">
+  <div class="text-center" style="padding-top: 1rem!important;">
+    <p class="lead">Displayed after queue members successfully get a ticket.</p>
+  </div>
+</div>
+<div class="container">
+  <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Content</label>
+    <textarea *ngIf="queue" class="form-control" id="exampleFormControlTextarea1" rows="5"
+              [(ngModel)]="queue.reminderText"></textarea>
+  </div>
+</div>
+<div class="d-grid gap-2 col-6 mx-auto mt-3 mb-3">
+  <button class="btn btn-primary" type="button" (click)="editReminderText()">Save</button>
+</div>

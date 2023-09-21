@@ -1,0 +1,48 @@
+<div class="card border-light" style="background-color: #fff;">
+  <div class="card-header">My Ticket</div>
+  <div  *ngIf="isDropdownMenuVisible()" class="dropdown position-absolute top-0 end-0" style="width: 1.9rem;padding-top: 0.4rem;">
+    <a style="padding: revert;" data-bs-toggle="dropdown" (click)="initHtml2Img(ticketVo)"
+       aria-expanded="false">
+      <i class="bi bi-three-dots" style="color: black;"></i>
+    </a>
+    <div class="dropdown-menu dropdown-menu-dark text-small shadow">
+      <a class="dropdown-item" *ngIf="queueVo&&queueVo.memberOptions.ticketSetting.downloadTicket"  [routerLink]="['/member/ticket-download',queueVo.id,ticketVo.id]">Download Ticket</a>
+      <a *ngIf="queueVo&&queueVo.memberOptions.ticketSetting.memberAttachTypeEnum!='NOT_ALLOW_ATTACH'"
+         class="dropdown-item" data-bs-toggle="modal"
+         data-bs-target="#attachMsgModal">Attach Message</a>
+      <a *ngIf="queueVo&&queueVo.memberOptions.ticketSetting.refundTypeEnum!='NOT_ALLOW_REFUND'" class="dropdown-item"
+         (click)="refundTicket(ticketVo.id,ticketVo.queueId)">Refund Ticket</a>
+    </div>
+  </div>
+</div>
+<app-ticket-v2  id="{{ticketVo.id}}" [ticketVo]="ticketVo" [queueVo]="queueVo">
+</app-ticket-v2>
+<div class="modal fade" id="attachMsgModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="attachMsgModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="attachMsgModalLabel">Attach Message</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <app-ticket-v2 [ticketVo]="cloneTicketVo" [queueVo]="queueVo">
+            </app-ticket-v2>
+          </div>
+          <div class="row mt-3">
+            <div class="mb-1">
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Enter message content"
+                    [(ngModel)]="attachMsg" (ngModelChange)="attachMsgOnchange()"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="submit()">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="row border-bottom"
+       style="padding-bottom: 0.8rem;text-align: center;
+       padding-top: 1rem!important; position: sticky;top: 0;background-color: white;z-index: 1000">
+    <div class="col-2">
+      <i class="bi bi-chevron-left" [routerLink]="['/super-admin/users']"></i>
+    </div>
+    <div class="col text-center">
+      <h6 class="mb-0">用户详情</h6>
+    </div>
+    <div class="col-2">
+      <i class="bi bi-plus-lg" data-bs-toggle="dropdown" aria-expanded="false"></i>
+      <ul class="dropdown-menu">
+<!--        <li><a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#smsModal">新增短信</a></li>-->
+      </ul>
+    </div>
+  </div>
+  <div *ngIf="userVo" class="mb-3 mt-3">
+    <div class="container">
+      <div class="row">
+        <h2>User Details</h2>
+        <p><strong>ID:</strong> {{ userVo.id }}</p>
+        <p><strong>Name:</strong> {{ userVo.name }}</p>
+<!--        <p><strong>Phone:</strong> {{ userVo.phone }}</p>-->
+<!--        <p><strong>openId:</strong> {{ userVo.openId }}</p>-->
+<!--        <p><strong>mpOpenId:</strong> {{ userVo.mpOpenId }}</p>-->
+        <p><strong>registrationMethod:</strong> {{ userVo.registrationMethod }}</p>
+        <p><strong>userRole:</strong> {{ userVo.userRole }}</p>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<!-- Modal -->
+<!--<div class="modal fade" id="smsModal" data-bs-backdrop="static" data-bs-keyboard="false"-->
+<!--     tabindex="-1" aria-labelledby="smsModalLabel" aria-hidden="true">-->
+<!--  <div class="modal-dialog">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--        <h1 class="modal-title fs-5"-->
+<!--            id="smsModalLabel">新增短信-->
+<!--        </h1>-->
+<!--        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--      </div>-->
+<!--      <div class="modal-body">-->
+<!--        <div class="mb-3">-->
+<!--          <label class="form-label">增加数量</label>-->
+<!--          <input type="number" class="form-control" [(ngModel)]="smsCount">-->
+<!--        </div>-->
+
+<!--      </div>-->
+<!--      <div class="modal-footer">-->
+<!--        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>-->
+<!--        <button type="button" class="btn btn-primary"-->
+<!--                (click)="submitSms()">提交</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->

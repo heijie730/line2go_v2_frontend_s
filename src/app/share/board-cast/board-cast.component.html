@@ -1,0 +1,117 @@
+<div class="card border-light mb-3 no-padding-left-right">
+  <div class="card-header">Broadcast Messages</div>
+  <div *ngIf="role=='MEMBER'"
+       class="dropdown position-absolute top-0 end-0"
+       style="width: 1.9rem; padding-top: 0.4rem;">
+    <a style="padding: revert;" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-three-dots" style="color: black;"></i>
+    </a>
+    <div class="dropdown-menu dropdown-menu-dark text-small shadow">
+      <a  class="dropdown-item" (click)="notificationSwitch(notificationSwitchModal)" >Notification Switch</a>
+      <a *ngIf="queueVo.boardCastManager.allowMemberPublishAny" class="dropdown-item" data-bs-toggle="modal"
+         data-bs-target="#postBroadCastModal">Post Broadcast</a>
+      <a *ngIf="queueVo.boardCastManager.allowMemberPublishSpecify &&
+             queueVo.boardCastManager.boardCastQuestions.length > 0" class="dropdown-item" data-bs-toggle="modal"
+         data-bs-target="#publishStatusModal">Post Specified Broadcast</a>
+    </div>
+  </div>
+  <div *ngIf="role=='LEADER'"
+       class="dropdown position-absolute top-0 end-0"
+       style="width: 1.9rem; padding-top: 0.4rem;">
+    <a style="padding: revert;" data-bs-toggle="dropdown"
+       aria-expanded="false">
+      <i class="bi bi-three-dots" style="color: black;"></i>
+    </a>
+    <div class="dropdown-menu dropdown-menu-dark text-small shadow">
+      <a class="dropdown-item" data-bs-toggle="modal"
+         data-bs-target="#postBroadCastModal">Post Broadcast</a>
+      <a *ngIf="queueVo.boardCastManager.boardCastQuestions.length > 0" class="dropdown-item" data-bs-toggle="modal"
+         data-bs-target="#publishStatusModal">Post Specified Broadcast</a>
+      <a class="dropdown-item" *ngIf="boardCastLogVos.length > 0" (click)="clearBoardCast()">Clear Broadcast</a>
+    </div>
+  </div>
+
+  <div #scrollable (scroll)="onScroll($event)" style="max-height: 30rem; overflow-y: auto;">
+    <div class="list-group" *ngIf="boardCastLogVos.length > 0">
+      <div *ngFor="let item of boardCastLogVos; index as i"
+           class="list-group-item justify-content-between align-items-center">
+        <p *ngIf="item.title" class="mb-1" style="font-weight: bold">{{ item.title }}</p>
+        <p class="mb-1">{{ item.nickName + ': ' }}{{ item.text }}</p>
+        <small style="color: grey;">{{ dateTimeUtils.yyyyMMddHHmmss(item.createDateTime,queueVo.timeZone) }}</small>
+      </div>
+    </div>
+    <div *ngIf="boardCastLogVos.length == 0" class="text-center mt-4">
+      <div class="card-body">
+        <h5 class="card-title">No Data Available</h5>
+        <!-- <p class="card-text">There is currently no data to display. Please try again later.</p> -->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="postBroadCastModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="publishStatusModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="postBroadCastModalLabel">Post Broadcast</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-1">
+          <!-- <label class="form-label">Content</label> -->
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Enter broadcast content"
+                    [(ngModel)]="boardCast"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" (click)="cleanBoardCast()">Clear Data</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="postBoardCast()">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="publishStatusModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="publishStatusModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="publishStatusModalLabel">Post Broadcast</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-1">
+          <div class="row">
+            <div class="col"><label class="form-label">Please select a question</label></div>
+          </div>
+          <select class="form-select" aria-label="Default select example" [(ngModel)]="chooseValue">
+            <option *ngFor="let statusByQuestion of queueVo.boardCastManager.boardCastQuestions; index as i"
+                    value="{{statusByQuestion.question}}">{{ statusByQuestion.question }}</option>
+          </select>
+        </div>
+        <div class="mb-1">
+          <label class="form-label" for="inputAnswer">Enter Content</label>
+          <textarea class="form-control" id="inputAnswer" rows="3" placeholder="Enter message content"
+                    [(ngModel)]="answerValue"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="save()">Post</button>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #notificationSwitchModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Notification Switch</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+  <app-notify-switch></app-notify-switch>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="c('Save click')">Close</button>
+  </div>
+</ng-template>

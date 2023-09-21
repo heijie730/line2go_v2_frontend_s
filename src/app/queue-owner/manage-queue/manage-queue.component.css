@@ -1,0 +1,166 @@
+.example-tab-icon {
+  margin-right: 8px;
+}
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+.dropdown-menu {
+  margin: 4rem auto;
+}
+
+.dropdown-item-danger {
+  color: var(--bs-red);
+}
+.dropdown-item-danger:hover,
+.dropdown-item-danger:focus {
+  color: #fff;
+  background-color: var(--bs-red);
+}
+.dropdown-item-danger.active {
+  background-color: var(--bs-red);
+}
+
+.btn-hover-light {
+  background-color: var(--bs-white);
+}
+.btn-hover-light:hover,
+.btn-hover-light:focus {
+  color: var(--bs-blue);
+  background-color: var(--bs-light);
+}
+
+.cal-month,
+.cal-days,
+.cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  align-items: center;
+}
+.cal-month-name {
+  grid-column-start: 2;
+  grid-column-end: 7;
+  text-align: center;
+}
+.cal-weekday,
+.cal-btn {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  padding: 0;
+}
+.cal-btn:not([disabled]) {
+  font-weight: 500;
+}
+.cal-btn:hover,
+.cal-btn:focus {
+  background-color: rgba(0, 0, 0, .05);
+}
+.cal-btn[disabled] {
+  border: 0;
+  opacity: .5;
+}
+
+.form-control-dark {
+  background-color: rgba(255, 255, 255, .05);
+  border-color: rgba(255, 255, 255, .15);
+}
+
+
+.w-220px {
+  width: 220px;
+}
+
+.w-280px {
+  width: 280px;
+}
+
+.w-340px {
+  width: 340px;
+}
+
+.w-600px {
+  width: 600px;
+}
+
+.btn span.glyphicon {
+  opacity: 0;
+}
+.btn.active span.glyphicon {
+  opacity: 1;
+}
+.checkbox-parent {
+  text-align: center;
+  padding-left: unset;
+}
+body{
+  background-color: #eee;
+}
+
+.mt-30{
+  margin-top: 1rem;
+}
+
+.mb-70{
+  margin-bottom: 4rem;
+}
+
+.card {
+  box-shadow: 0 0.46875rem 2.1875rem rgba(4,9,20,0.03), 0 0.9375rem 1.40625rem rgba(4,9,20,0.03), 0 0.25rem 0.53125rem rgba(4,9,20,0.05), 0 0.125rem 0.1875rem rgba(4,9,20,0.03);
+  border-width: 0;
+  transition: all .2s;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(26,54,126,0.125);
+  border-radius: .25rem;
+}
+
+.card-body {
+  flex: 1 1 auto;
+  padding: 1.25rem;
+}
+
+
+
+.nav-tab-padding-bottom{
+  padding-bottom: 6rem;
+}
+
+.dropdown-menu{
+  margin: 0;
+}
+.date-link {
+  /*color: blue;*/
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.date-link:hover {
+  color: darkblue;
+}
+/* 默认样式，适用于所有设备 */
+.form-check.checkbox-parent {
+  border: unset;
+}
+
+/* 媒体查询，仅在最小宽度为 768px（桌面端）时应用 */
+@media screen and (min-width: 768px) {
+  .form-check.checkbox-parent {
+    border:1px solid #ccc;
+  }
+}

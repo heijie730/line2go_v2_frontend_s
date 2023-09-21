@@ -1,0 +1,140 @@
+<div class="container">
+  <div class="row border-bottom"
+       style="padding-bottom: 0.8rem; text-align: center;
+       padding-top: 1rem!important; position: sticky; top: 0; background-color: white; z-index: 1000">
+    <div class="col-2">
+      <i class="bi bi-chevron-left" [routerLink]="['/leader/manual-inform', queueId]"></i>
+    </div>
+    <div class="col text-center">
+      <h6 class="mb-0">{{title}}</h6>
+    </div>
+    <div class="col-2">
+      <div *ngIf="index">
+        <i class="bi bi-plus-lg" data-bs-toggle="dropdown" aria-expanded="false"></i>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" (click)="delete()">Delete</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="text-center" style="padding-top: 1rem!important;">
+    <div class="lead">Manually trigger after selecting the ticket in the management interface</div>
+  </div>
+  <div class="row mt-3">
+    <div class="mb-3">
+      <label class="form-label">Name</label>
+      <input type="text" class="form-control" [(ngModel)]="currentItem.title">
+    </div>
+  </div>
+
+    <app-accordion [header]="'Email Configuration'">
+      <label class="form-label">Email Title</label>
+      <input type="text" class="form-control" [(ngModel)]="currentItem.emailMsg.title">
+      <app-custom-notification-template [baseNotification]="currentItem.emailMsg"
+                                        [queueVo]="queueVo"
+      [templateType]="TemplateType.EMAIL_MSG"></app-custom-notification-template>
+      <div class="mb-1">
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox"
+                 [(ngModel)]="currentItem.emailMsg.enable" id="enableEmailNotificationSwitch">
+          <label class="form-check-label" for="enableEmailNotificationSwitch">Enable</label>
+        </div>
+      </div>
+    </app-accordion>
+
+
+  <div class="row mb-3">
+    <div class="accordion" id="accordionExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Broadcast Message Configuration
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+             data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <app-custom-notification-template [baseNotification]="currentItem.boardCastMsg"
+                                              [queueVo]="queueVo"
+            [templateType]="TemplateType.BOARD_CAST"></app-custom-notification-template>
+            <div class="mb-1">
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox"
+                       [(ngModel)]="currentItem.boardCastMsg.enable" id="enableBoardCastNotificationSwitch">
+                <label class="form-check-label" for="enableBoardCastNotificationSwitch">Show in Broadcast Message</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-accordion [header]="'Inbox Message Configuration'">
+    <label class="form-label">Title</label>
+    <input type="text" class="form-control" [(ngModel)]="currentItem.privateMsg.title">
+    <app-custom-notification-template [baseNotification]="currentItem.privateMsg"
+                                      [queueVo]="queueVo"
+    [templateType]="TemplateType.PRIVATE_MSG"></app-custom-notification-template>
+    <div class="mb-1">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" disabled
+               [(ngModel)]="currentItem.privateMsg.enable" id="enablePrivateMsgNotificationSwitch">
+        <label class="form-check-label" for="enablePrivateMsgNotificationSwitch">Enable</label>
+      </div>
+    </div>
+  </app-accordion>
+  <div class=" row  mb-3">
+    <div class="accordion" id="accordionWithTags">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingWithTags">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseWithTags" aria-expanded="true" aria-controls="collapseWithTags">
+            Ticket Tag Configuration
+          </button>
+        </h2>
+        <div id="collapseWithTags" class="accordion-collapse collapse" aria-labelledby="headingWithTags"
+             data-bs-parent="#accordionWithTags">
+          <div class="accordion-body">
+            <label class="form-label">Mark tickets with selected tags when notifying</label>
+            <div class="form-check" *ngFor="let tagVo of informWithTagVos; index as i">
+              <input class="form-check-input" type="checkbox" value="" id="color-check-{{i}}"
+                     [(ngModel)]="tagVo.checked">
+              <label class="form-check-label" for="color-check-{{i}}">
+                <span class="badge" [style.background-color]="tagVo.color">{{tagVo.tagContent}}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class=" row  mb-3">
+    <div class="accordion" id="accordionWithTicketMsg">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingWithTicketMsg">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseWithTicketMsg" aria-expanded="true" aria-controls="collapseWithTicketMsg">
+             Ticket Remarks Configuration
+          </button>
+        </h2>
+        <div id="collapseWithTicketMsg" class="accordion-collapse collapse" aria-labelledby="headingWithTicketMsg"
+             data-bs-parent="#accordionWithTags">
+          <div class="accordion-body">
+            <label class="form-label">Attach information to ticket note</label>
+            <app-ticket-msg [ticketMsgManager]="currentItem.ticketMsgManager"></app-ticket-msg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <app-voice-board-cast
+      [voiceBoardCast]="currentItem.voiceBoardCast"
+      [queueVo]="queueVo"
+    ></app-voice-board-cast>
+  </div>
+</div>
+<div class="d-grid gap-2 col-6 mx-auto mt-3 mb-3">
+  <button class="btn btn-primary" type="button" (click)="submit()">Save</button>
+</div>

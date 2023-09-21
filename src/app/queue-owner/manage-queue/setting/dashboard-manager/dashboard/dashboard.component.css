@@ -1,0 +1,10 @@
+.header {
+  opacity: 0;
+  transition: opacity 0.5s;
+  pointer-events: none; /* 初始状态下禁用鼠标事件 */
+}
+
+.header.visible {
+  opacity: 1;
+  pointer-events: auto; /* 当 visible 类被添加时，启用鼠标事件 */
+}

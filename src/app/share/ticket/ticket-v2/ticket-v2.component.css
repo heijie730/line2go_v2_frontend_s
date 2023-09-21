@@ -1,0 +1,11 @@
+.card-header {
+  background-color: #f8f9fa; /* 设置标题行的背景颜色为淡灰色 */
+}
+
+.d-flex > .font-weight-bold {
+  white-space: nowrap; /* 防止标题换行 */
+}
+
+.border-bottom {
+  border-color: #eeeeee; /* 设置下边框的颜色为淡灰色 */
+}

@@ -1,0 +1,45 @@
+<app-header *ngIf="type=='add'" [titleName]="'Add Questionnaire'" [lastType]="'closePage'"
+            [lastPath]="'/leader/survey-list/'+queueId+'?page=0&size=10'"></app-header>
+<app-header *ngIf="type=='edit'" [titleName]="'Edit Questionnaire'" [lastType]="'closePage'"
+            [lastPath]="'/leader/survey-list/'+queueId+'?page=0&size=10'"></app-header>
+<app-header *ngIf="type=='clone'" [titleName]="'Clone Questionnaire'" [lastType]="'closePage'"
+            [lastPath]="'/leader/survey-list/'+queueId+'?page=0&size=10'"></app-header>
+
+<div class="container" style="padding-top: 1rem;">
+  <div class="row">
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Name</label>
+      <input type="text" class="form-control" id="exampleFormControlInput1" [(ngModel)]="surveyVo.survey.name">
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                [(ngModel)]="surveyVo.survey.description"></textarea>
+    </div>
+  </div>
+  <!--  <div class="row">-->
+  <!--    <div class="mb-3">-->
+  <!--      <div class="form-check form-switch">-->
+  <!--        <input class="form-check-input" [(ngModel)]="surveyVo.survey.open" type="checkbox" role="switch" id="flexSwitchCheckDefault">-->
+  <!--        <label class="form-check-label" for="flexSwitchCheckDefault">Open</label>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <div class="row">
+    <div class="btn-group" role="group" aria-label="Basic outlined example">
+      <button type="button" (click)="saveSurvey(null)" class="btn btn-outline-primary col-4">
+
+        <i class="bi bi-save"></i>
+        <div style="font-size: xx-small;">Save</div>
+      </button>
+      <button type="button" (click)="saveSurveyAndToPreview()" class="btn btn-outline-primary col-4">
+        <i class="bi bi-file-text"></i>
+        <div style="font-size: xx-small;">Preview</div>
+      </button>
+      <button type="button" (click)="saveSurveyAndAddQuestion()" class="btn btn-outline-primary col-4">
+        <i class="bi bi-chevron-right"></i>
+        <div style="font-size: xx-small;">Add</div>
+      </button>
+    </div>
+  </div>
+</div>

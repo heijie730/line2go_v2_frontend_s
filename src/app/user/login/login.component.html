@@ -1,0 +1,54 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-sm-10 col-md-8 col-lg-6">
+      <div class="card border-0 shadow rounded-3">
+        <div class="card-body p-4 p-sm-5">
+          <h5 class="card-title text-center mb-4 fw-bold">Login</h5>
+          <div *ngIf="!notEmail">
+            <div class="form-floating mb-4">
+              <input [(ngModel)]="loginVo.email" type="email" class="form-control" id="floatingEmail"
+                     placeholder="Email">
+              <label for="floatingEmail">Email</label>
+            </div>
+            <div class="form-floating mb-4">
+              <input [(ngModel)]="loginVo.password" type="password" class="form-control" id="floatingPassword"
+                     placeholder="Password">
+              <label for="floatingPassword">Password</label>
+            </div>
+
+            <div class="d-grid mb-3">
+              <button (click)="emailLogin()" class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">
+                Submit
+              </button>
+            </div>
+            <div class="text-center my-2">
+              <a [routerLink]="['/register-email']" [queryParams]="{ return:return}" class="text-decoration-none me-3">
+                Register with Email
+              </a>
+              <span>|</span>
+              <a [routerLink]="['/password-recovery-email']" class="text-decoration-none ms-3">
+                Password Recovery
+              </a>
+            </div>
+<!--            <hr class="my-2">-->
+          </div>
+          <div *ngIf="!notGoogle" class="mb-2 d-flex justify-content-center"> <!-- 使用 d-flex 和 justify-content-center 类 -->
+            <button type="button" class="btn btn-link btn-floating mx-1">
+              <asl-google-signin-button type='standard'
+                                        locale="en-US"
+                                        text='signin_with' size="medium"></asl-google-signin-button>
+            </button>
+          </div>
+          <hr class="my-4">
+
+          <div class="d-grid gap-2 mb-3">
+            <button *ngIf="!notVisitor" (click)="toVisitor()" class="btn btn-grey btn-login text-uppercase fw-bold"
+                    type="submit">
+              <i class="fas fa-user-circle"></i> Login as Guest
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

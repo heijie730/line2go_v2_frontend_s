@@ -1,0 +1,40 @@
+<div class="modal fade" id="{{id}}" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="ticketDetailModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div *ngFor="let ticketVo of ticketVos; index as i"
+             style="padding-bottom:0.5rem;">
+          <div style="display: flex">
+            <div class="col-4 text-break">
+              No.{{ ticketVo.ticketNo}}<app-tool-tip *ngIf="ticketVo.ticketServiceTime" [content]="ticketVo.ticketServiceTime.startTime + '-' + ticketVo.ticketServiceTime.endTime"></app-tool-tip>
+            </div>
+            <div class="col-4 text-break">
+              {{ ticketVo.ticketUserInfo.userName }}
+            </div>
+            <div class="col-4 text-break" *ngIf="ticketVo.ticketUserInfo.filledSurveyVo">
+              <a class="icon-link d-inline-flex"
+                 data-bs-toggle="modal" data-bs-target="#fillSurveyModal" (click)="openModal(ticketVo.ticketUserInfo.filledSurveyVo)">
+                Survey
+                <i class="bi bi-chevron-right" style="width: 1rem;height: 1rem"></i>
+              </a>
+            </div>
+          </div>
+          <span class="badge" [style.background-color]="tagVo.color"
+                *ngFor="let tagVo of ticketVo?.tags">{{ tagVo.tagContent }}
+            <i class="bi bi-x" (click)="deleteTag(tagVo, ticketVo)"></i>
+          </span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deleteTickets()">Delete Tickets</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<app-fill-survey-modal [id]="'fillSurveyModal'" [filledSurveyVo]="filledSurveyVo"></app-fill-survey-modal>

@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row border-bottom"
+       style="padding-bottom: 0.8rem;text-align: center;
+       padding-top: 1rem!important; position: sticky;top: 0;background-color: white;z-index: 1000">
+    <div class="col-2">
+      <i class="bi bi-chevron-left" [routerLink]="['/leader/edit-base-info',queueId]"></i>
+    </div>
+    <div class="col text-center">
+      <h6 class="mb-0">Transfer Queue<app-tool-tip [content]="'Have your friends scan the QR code or send them the link below to transfer this queue.'"></app-tool-tip></h6>
+    </div>
+    <div class="col-2">
+      <div>
+        <i class="bi bi-plus-lg" data-bs-toggle="dropdown" aria-expanded="false"></i>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" [routerLink]="['/leader/scan-transfer-queue']">Scan QR Code</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="row"  *ngIf="queueVo">
+    <div class="text-center" style="padding-top: 1rem!important;">
+      <h4 class="text-center">{{queueVo.queueName}}</h4>
+    </div>
+    <div class="text-center">
+      <qrcode [qrdata]="transferQueueUrl"
+              [elementType]="'img'"
+              [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+    </div>
+    <div class="d-flex mt-2">
+      <input class="form-control" [(ngModel)]="transferQueueUrl" readonly>
+      <button class="btn  ms-2" (click)="copyUrl()">
+        <i *ngIf="!copyChecked" class="bi bi-clipboard"></i>
+        <i *ngIf="copyChecked" class="bi bi-clipboard-check"></i>
+      </button>
+    </div>
+
+  </div>
+  <div class="text-center mt-2"  *ngIf="queueVo">
+    <h6 class="text-center">Verification Code: {{ verificationCodeVo ? verificationCodeVo.code : "None" }}</h6>
+    <div *ngIf="countDown>0">{{ countDown }} seconds until expiration</div>
+    <button  type="button" *ngIf="!verificationCodeVo"
+             class="btn btn-primary btn-sm" (click)="generateTransferQueueCode()">Generate Code
+    </button>
+  </div>
+</div>

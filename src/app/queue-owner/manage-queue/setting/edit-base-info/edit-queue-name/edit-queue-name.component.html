@@ -1,0 +1,17 @@
+<app-header-v2 [headerName]="'Edit Queue Name'"></app-header-v2>
+<div class="container mt-3"  *ngIf="queue">
+  <div class="mb-3">
+    <label class="form-label">Queue Name</label>
+    <input type="text" class="form-control" [(ngModel)]="queue.queueName">
+  </div>
+  <div class="mb-3">
+    <label for="timeZoneSelect" class="form-label">Select Time Zone</label>
+    <select id="timeZoneSelect" class="form-select" aria-label="Default select example"
+            [(ngModel)]="queue.timeZone">
+      <option *ngFor="let tz of timezones" [value]="tz">{{ tz }}</option>
+    </select>
+  </div>
+</div>
+<div class="d-grid gap-2 col-6 mx-auto mt-3 mb-3">
+  <button class="btn btn-primary" type="button" (click)="editQueueName()">Save</button>
+</div>

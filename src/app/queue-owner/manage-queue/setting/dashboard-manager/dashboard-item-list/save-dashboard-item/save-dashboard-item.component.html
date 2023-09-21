@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="row border-bottom"
+       style="padding-bottom: 0.8rem;text-align: center;
+       padding-top: 1rem!important; position: sticky;top: 0;background-color: white;z-index: 1000">
+    <div class="col-2">
+      <i class="bi bi-chevron-left" [routerLink]="['/leader/dashboard-item-list',queueId]"></i>
+    </div>
+    <div class="col text-center">
+      <h6 class="mb-0">{{title}}</h6>
+    </div>
+    <div class="col-2">
+    </div>
+  </div>
+
+  <div class="mb-3 mt-3" *ngIf="!index">
+    <label for="attachTypeEnum" class="form-label">Component Type
+    </label>
+    <select id="attachTypeEnum" class="form-select" aria-label="Default select example"
+            [(ngModel)]="currentItem.dashboardItemEnum">
+      <option value="CUSTOM_CONTENT">Custom Content</option>
+      <option value="TICKET_TAKEN_LIST">Ticket Taken List</option>
+      <option value="USER_IMAGE">Image</option>
+      <option value="BOARD_CAST">Broadcast Message</option>
+    </select>
+  </div>
+
+  <div *ngIf="currentItem.dashboardItemEnum==='CUSTOM_CONTENT'">
+    <app-save-custom-content-item
+      [dashboardItem]="currentItem"
+    ></app-save-custom-content-item>
+    <div class="mb-3">
+      <label class="form-label">Preview</label>
+      <custom-content-item [dashboardEnum]="dashboardEnum"
+                           [dashboardItem]="currentItem"></custom-content-item>
+    </div>
+  </div>
+
+  <div *ngIf="currentItem.dashboardItemEnum==='USER_IMAGE'">
+    <app-save-user-image-item
+      [dashboardItem]="currentItem"
+    ></app-save-user-image-item>
+    <div class="mb-3">
+      <label class="form-label">Preview</label>
+      <app-user-image-item
+        [dashboardEnum]="dashboardEnum"
+        [imageKey]="currentItem.userImageSetting.key"
+        [dashboardItem]="currentItem"></app-user-image-item>
+    </div>
+  </div>
+
+  <div *ngIf="currentItem.dashboardItemEnum==='TICKET_TAKEN_LIST'">
+    <app-save-ticket-taken-list-item
+      [dashboardItem]="currentItem"
+      [queueVo]="queueVo"
+    ></app-save-ticket-taken-list-item>
+    <div class="mb-3">
+      <label class="form-label">Preview</label>
+      <app-ticket-taken-list-item
+        [dashboardEnum]="dashboardEnum"
+        [queueVo]="queueVo"
+        [dashboardItem]="currentItem"></app-ticket-taken-list-item>
+    </div>
+  </div>
+
+  <div *ngIf="currentItem.dashboardItemEnum==='BOARD_CAST'">
+    <app-save-board-cast-item
+      [dashboardItem]="currentItem" [queueVo]="queueVo"></app-save-board-cast-item>
+    <div class="mb-3">
+      <label class="form-label">Preview</label>
+      <app-board-cast-item
+        [dashboardItem]="currentItem"
+        [dashboardEnum]="dashboardEnum"
+        [queueVo]="queueVo"
+      ></app-board-cast-item>
+    </div>
+  </div>
+</div>
+
+<div class="d-grid  gap-2 col-6 mx-auto mb-5 mt-5">
+  <button class="btn btn-primary" type="button" (click)="submit()">Save</button>
+  <button *ngIf="index" class="btn btn-danger" type="button" (click)="delete()">Delete</button>
+</div>

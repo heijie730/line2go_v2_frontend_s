@@ -1,0 +1,28 @@
+<div class="parent" (mouseenter)="isHeaderVisible = true" (mouseleave)="isHeaderVisible = false"
+     (mousedown)="onMouseDown($event)">
+  <div class="header" [ngClass]="{'visible': isHeaderVisible}" #headerElement>
+    <!-- Header content -->
+    <div class="row border-bottom"
+         style="padding-bottom: 0.8rem; text-align: center; padding-top: 1rem!important; position: sticky; top: 0; background-color: white; z-index: 1000;">
+      <div class="col-6">
+        <input class="form-check-input" style="margin-right: 4px;"
+               [(ngModel)]="isEdit" (change)="onChange()"
+               type="checkbox" role="switch" id="emailInput">
+        <label class="form-check-label" for="emailInput">Edit Mode</label>
+      </div>
+      <div class="col-6">
+        <button [disabled]="!isEdit" class="btn btn-success btn-sm" (click)="submit()"> Save
+        </button>
+        <app-tool-tip [content]="'Click Save to apply changes to the page configuration!'"></app-tool-tip>
+      </div>
+    </div>
+  </div>
+  <!-- Other content -->
+
+  <app-dashboard-template [imageKey]="currentTemplate.key"
+                          [queueVo]="queueVo" [dashboardTemplate]="currentTemplate"
+                          [dashboardEnum]="dashboardEnum"
+                          (submitTrigger)="submit()"
+  >
+  </app-dashboard-template>
+</div>

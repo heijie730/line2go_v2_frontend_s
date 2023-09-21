@@ -1,0 +1,4 @@
+.item-container {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px; /* 可选：添加一些底部间距，使横线与文本之间有一定的间隔 */
+}

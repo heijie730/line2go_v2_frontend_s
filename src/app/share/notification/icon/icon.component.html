@@ -1,0 +1,6 @@
+<div class="position-relative" style="width: 1rem;"  [routerLink]="['/share/notifications']"  [queryParams]="{ page: 0,size:10,homeUrl:homeUrl}">
+  <i class="bi bi-bell"></i>
+  <span *ngIf="count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    {{count}}
+  </span>
+</div>

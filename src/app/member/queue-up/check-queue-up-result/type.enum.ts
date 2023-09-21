@@ -1,0 +1,6 @@
+export enum TypeEnum{
+  PROCESSING="PROCESSING",
+  SUCCESS="SUCCESS",
+  FAIL="FAIL",
+  TIME_OUT="TIME_OUT"
+}

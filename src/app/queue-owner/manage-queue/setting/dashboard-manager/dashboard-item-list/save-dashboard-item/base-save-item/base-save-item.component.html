@@ -1,0 +1,50 @@
+<div class="mb-3 mt-3">
+  <label class="form-label">Component Name</label>
+  <input type="text" class="form-control" [(ngModel)]="dashboardItem.title">
+</div>
+<div class="mb-3">
+  <div class="input-group mb-3">
+    <span class="input-group-text">H. Offset</span>
+    <input type="number" class="form-control"
+           [(ngModel)]="dashboardItem.x">
+    <span class="input-group-text">V. Offset</span>
+    <input type="number" class="form-control"
+           [(ngModel)]="dashboardItem.y">
+  </div>
+</div>
+<div class="mb-3">
+  <div class="input-group mb-3">
+    <span class="input-group-text">Width</span>
+    <input type="number" class="form-control"
+           [(ngModel)]="dashboardItem.width">
+    <span class="input-group-text">px</span>
+    <span class="input-group-text">Height</span>
+    <input type="number" class="form-control"
+           [(ngModel)]="dashboardItem.height">
+    <span class="input-group-text">px</span>
+  </div>
+</div>
+
+<div class="mb-3">
+  <label for="customRange3" class="form-label">Opacity</label>
+  <input type="range" [(ngModel)]="dashboardItem.opacity" class="form-range" min="0" max="100" step="1"
+         id="customRange3">
+</div>
+<div class="row mb-1">
+  <div class="col">
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox"
+             [(ngModel)]="dashboardItem.border" id="enableBorderSwitch">
+      <label class="form-check-label" for="enableBorderSwitch">Border</label>
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox"
+             [(ngModel)]="dashboardItem.shadow" id="enableShadowSwitch">
+      <label class="form-check-label" for="enableShadowSwitch">Shadow</label>
+    </div>
+  </div>
+</div>
+
+<ng-content></ng-content>

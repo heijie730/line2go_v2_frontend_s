@@ -1,0 +1,31 @@
+<div class="container" *ngIf="ticketVo">
+  <div class="row border-bottom"
+       style="padding-bottom: 0.8rem;text-align: center;
+       padding-top: 1rem!important; position: sticky;top: 0;background-color: white;z-index: 1000">
+    <div class="col-2">
+      <i class="bi bi-chevron-left" (click)="back()"></i>
+    </div>
+    <div class="col text-center">
+      <h6 class="mb-0">Download</h6>
+    </div>
+    <div class="col-2">
+      <div class="dropdown">
+        <a style="padding: revert;" data-bs-toggle="dropdown" (click)="initHtml2Img(ticketVo)"
+           aria-expanded="false">
+          <i class="bi bi-three-dots"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-dark text-small shadow">
+          <a class="dropdown-item" href="{{ticketVo.imgData}}" download="myticket{{ticketVo.ticketNo}}">Download Ticket</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="alert alert-warning alert-dismissible" role="alert">
+  Click the upper right corner to download
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<div class="container mt-1">
+  <app-ticket-v2 *ngIf="ticketVo&&queueVo" [queueVo]="queueVo" id="{{ticketVo.id}}" [ticketVo]="ticketVo"
+                 [qrCodeData]="ticketVo.id"></app-ticket-v2>
+</div>

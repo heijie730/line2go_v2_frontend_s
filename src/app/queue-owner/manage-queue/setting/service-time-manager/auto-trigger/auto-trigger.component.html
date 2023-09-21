@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row border-bottom"
+       style="padding-bottom: 0.8rem; text-align: center;
+       padding-top: 1rem!important; position: sticky; top: 0; background-color: white; z-index: 1000">
+    <div class="col-2">
+      <i class="bi bi-chevron-left" [routerLink]="['/leader/service-time-manager', queueId]"></i>
+    </div>
+    <div class="col text-center">
+      <h6 class="mb-0">Service Time Setting for Generating Tickets</h6>
+    </div>
+    <div class="col-2">
+    </div>
+  </div>
+  <div class="row mt-3 mb-3">
+    <div class="text-center">
+      <div class="lead">When generating tickets, you can set service time for specified tickets.
+        <app-tool-tip [content]="'Specified ticket number can include one or multiple ticket number. Format: 1,2,3'"></app-tool-tip>
+      </div>
+    </div>
+  </div>
+  <div class="card mt-1" *ngFor="let item of itemList; index as i">
+    <div class="card-body">
+      <!-- Add delete icon button -->
+      <button class="btn btn-sm btn-outline-danger delete-button" (click)="deleteItem(i)">
+        <i class="fas fa-trash"></i>
+      </button>
+      <div class="mb-1">
+        <label class="form-label">Specified Ticket Numbers - {{i + 1}}</label>
+        <input placeholder="e.g. 1,2,3" type="text" class="form-control" [(ngModel)]="item.ticketNos"
+               (blur)="ticketsOnChange(item, i)">
+      </div>
+      <div class="mb-1">
+        <label class="form-label">Service Time</label>
+        <app-time-range [timeRange]="item"></app-time-range>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-3 mt-2">
+    <div class="col-2 d-grid gap-2 d-md-block">
+      <button class="btn btn-sm btn-outline-secondary add-button" (click)="addOption()">
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="d-grid gap-2 col-6 mx-auto mt-3 mb-3">
+  <button class="btn btn-primary" type="button" (click)="submit()">Save</button>
+</div>

@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row border-bottom"
+       style="padding-bottom: 0.8rem; text-align: center;
+       padding-top: 1rem!important; position: sticky; top: 0; background-color: white; z-index: 1000">
+    <div class="col-2">
+      <i class="bi bi-chevron-left" [routerLink]="['/leader/manage-queue',queueId]"></i>
+    </div>
+    <div class="col text-center">
+      <h6 class="mb-0">Child Queue Management
+        <app-tool-tip [content]="'After adding child queues, you can go to 【Settings】【Edit Basic Information】 to add links for child queues in the text, which can be used to navigate to the child queue for ticketing.'"></app-tool-tip>
+      </h6>
+    </div>
+    <div class="col-2">
+    </div>
+  </div>
+  <div class="row">
+    <div>
+      <div>
+        <div class="list-group w-auto list-group-flush border-bottom">
+          <a href="#" [routerLink]="['/leader/child-queue-list',queueId]"
+             class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+            <i class="fas fa-file-alt"></i>
+            <div class="d-flex gap-2 w-100 justify-content-between">
+              <div>
+                <h6 class="mb-0">Child Queue List</h6>
+              </div>
+              <small class="opacity-50 text-nowrap">
+                <i class="bi bi-chevron-compact-right"></i>
+              </small>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

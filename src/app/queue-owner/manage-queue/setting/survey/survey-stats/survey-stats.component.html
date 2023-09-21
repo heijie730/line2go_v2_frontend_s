@@ -1,0 +1,43 @@
+<app-header-v2 (toBackTrigger)="toBack()">
+  <div center #datePicker id="datePicker" class="date-link">
+    {{ date }}
+  </div>
+  <div right>
+    <div class="dropdown">
+      <a style="padding: revert;" data-bs-toggle="dropdown" (click)="initHtml2Img()"
+         aria-expanded="false">
+        <i class="bi bi-three-dots"></i>
+      </a>
+      <div class="dropdown-menu dropdown-menu-dark text-small shadow">
+        <a class="dropdown-item" href="{{imgData}}" download="surveyStats">Download Screenshot</a>
+      </div>
+    </div>
+  </div>
+</app-header-v2>
+
+<div id="surveyStats" class="container mt-4">
+  <div class="text-center">
+    <h3>{{ surveyVo.survey.name }}</h3>
+    <p class="lead">{{ surveyVo.survey.description }}</p>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card mt-4" style="border: unset">
+        <div class="card-body">
+          <div *ngFor="let statsDetail of surveyStats" class="mb-3">
+            <h5>{{ statsDetail.question }}</h5>
+            <div *ngFor="let answerStats of statsDetail.answerStats" class="d-flex justify-content-between align-items-center">
+              <div class="answer">{{ answerStats.answer }}</div>
+              <div class="count">{{ answerStats.count }}</div>
+            </div>
+            <hr class="my-4">
+          </div>
+          <div *ngIf="surveyStats.length==0" class="alert alert-info mt-4">
+            <p>No data available. Please select a different date or wait for users to participate.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

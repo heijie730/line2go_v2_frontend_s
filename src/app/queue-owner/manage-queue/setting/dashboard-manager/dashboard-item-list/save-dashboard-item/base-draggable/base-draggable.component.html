@@ -1,0 +1,27 @@
+<div #draggedElement #dragElement="cdkDrag" class="example-box box-border box-shadow" cdkDrag
+     [class.resizeable-element]="dashboardEnum != 'DASHBOARD_PRO'"
+     [class.box-border]="dashboardItem.border"
+     [class.box-shadow]="dashboardItem.shadow"
+     cdkDragBoundary=".parent-div"
+     [cdkDragFreeDragPosition]="(dashboardEnum=='DASHBOARD_EDIT'
+     ||dashboardEnum=='DASHBOARD_PRO'||dashboardEnum=='TEMPLATE_EDIT'
+     )?dashboardItem:{x:0,y:0}"
+     (cdkDragEnded)="onDragEnd($event)"
+     [cdkDragDisabled]="dashboardEnum == 'DASHBOARD_PRO'||dashboardEnum == 'ITEM_EDIT'"
+     [style]="'width:'+dashboardItem.width+'px;height:'+dashboardItem.height+'px;background-color: rgba(255, 255, 255, '+dashboardItem.opacity+'%); '">
+  <div *ngIf="dashboardEnum=='DASHBOARD_EDIT'
+     ||dashboardEnum=='TEMPLATE_EDIT'" class="delete-handle">
+    <i class="bi bi-x-lg" (click)="delete()"></i>
+  </div>
+  <div *ngIf="dashboardEnum=='DASHBOARD_EDIT'
+     ||dashboardEnum=='TEMPLATE_EDIT'" class="edit-handle">
+    <i class="bi bi-pencil-square" (click)="edit()"></i>
+  </div>
+  <div *ngIf="dashboardEnum=='DASHBOARD_EDIT'
+     ||dashboardEnum=='TEMPLATE_EDIT'"
+       class="example-handle" cdkDragHandle>
+    <i class="bi bi-arrows-move"></i>
+  </div>
+  <ng-content></ng-content>
+</div>
+

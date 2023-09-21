@@ -1,0 +1,9 @@
+.date-link {
+  /*color: blue;*/
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.date-link:hover {
+  color: darkblue;
+}

@@ -1,0 +1,8 @@
+<label class="form-label">{{title}}</label>
+<div class="form-check" *ngFor="let tagVo of tagVos;index as i">
+  <input class="form-check-input" type="checkbox" value="" id="color-check-{{i}}-{{randomId}}"
+         [(ngModel)]="tagVo.checked" (change)="change()">
+  <label class="form-check-label" for="color-check-{{i}}-{{randomId}}">
+    <span class="badge" [style.background-color]="tagVo.color">{{tagVo.tagContent}}</span>
+  </label>
+</div>

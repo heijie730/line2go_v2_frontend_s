@@ -1,0 +1,25 @@
+<div class="container" style="padding-top: 1rem!important;">
+  <div class="row border-bottom" style="padding-bottom: 0.8rem;text-align: center;">
+    <div class="col-1">
+      <i class="bi bi-chevron-left" (click)="toBack()"></i>
+    </div>
+    <div class="col-1">
+      <i class="bi bi-house" [routerLink]="[homeUrl]"></i>
+    </div>
+    <div class="col text-center">
+      <h6 class="mb-0">Notification Details</h6>
+    </div>
+    <div class="col-2">
+    </div>
+  </div>
+</div>
+<div class="container" *ngIf="notification">
+  <div class="row  text-center">
+    <h4 class="mt-4">{{notification.title}}</h4>
+    <small class="opacity-50">{{dateTimeUtils.toCalendar(notification.createDateTime)}}</small>
+    <p class="lh-base mt-3 router-link" [innerHtml]="notification.htmlContent"></p>
+  </div>
+</div>
+<div class="d-grid  gap-2 col-6 mx-auto  mt-3">
+  <button class="btn btn-danger" type="button" (click)="delete()">Delete</button>
+</div>

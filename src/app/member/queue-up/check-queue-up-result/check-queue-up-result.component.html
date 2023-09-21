@@ -1,0 +1,101 @@
+<app-header [titleName]="'Ticket Retrieval Result'"></app-header>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <!-- Loading -->
+      <div class="card border-primary" *ngIf="type=='PROCESSING'">
+
+        <div class="card-header text-primary">
+          <h3>
+            <i class="fas fa-spinner fa-spin"></i>
+            Retrieving Ticket Result
+          </h3>
+        </div>
+
+        <div class="card-body">
+          <p class="card-text">Ticket is being retrieved, please wait...</p>
+          <p class="card-text"><b>Queue Name:</b>{{queueName}}</p>
+          <p class="card-text"><b>Ticket Number:</b>{{ticketNo}}</p>
+          <p class="card-text" *ngIf="queue&&queue.generateTicketManager"><b>{{queue.generateTicketManager.ticketDateName}}:</b>{{date}}</p>
+        </div>
+
+      </div>
+
+      <!-- Success -->
+      <div class="card border-success"  [ngStyle]="{ display: type !== 'SUCCESS' ? 'none' : 'block' }">
+
+        <div class="card-header text-success">
+          <h3>
+            <i class="fas fa-check-circle"></i>
+            Ticket Retrieval Successful
+          </h3>
+        </div>
+
+        <div class="card-body">
+          <p class="card-text">You have successfully retrieved your ticket.</p>
+          <p class="card-text"><b>Queue Name:</b>{{queueName}}</p>
+          <p class="card-text"><b>Ticket Number:</b>{{ticketNo}}</p>
+          <p class="card-text" *ngIf="queue"><b>{{queue.generateTicketManager.ticketDateName}}:</b>{{date}}</p>
+          <button class="btn btn-primary"
+                  [routerLink]="['/member/queue-info',queueId,date]">
+            View Ticket Information
+          </button>
+        </div>
+
+      </div>
+      <div *ngIf="type=='FAIL'">
+        <div class="col-md-6 offset-md-3 mt-5">
+          <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+              <h3>
+                <span>Unable to Retrieve Ticket</span>
+              </h3>
+            </div>
+            <div class="card-body">
+              <p class="card-text">
+                You attempted to retrieve a ticket in the <b>{{queueName}}</b> queue,
+                <span *ngIf="ticketVo.errors.length === 1">
+                  Reason for failure:
+                </span>
+                <span *ngIf="ticketVo.errors.length > 1">
+                  Possible reasons for failure:
+                </span>
+              </p>
+              <p class="card-text" *ngFor="let item of ticketVo.errors">
+                <b>{{item}}</b>
+              </p>
+              <p class="card-text" *ngIf="queue">Please try again or contact {{queue.nickName}}.</p>
+              <button class="btn btn-primary"
+                      [routerLink]="['/member/home']">
+                View Existing Tickets
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeout -->
+      <div class="card border-warning" *ngIf="type=='TIME_OUT'">
+
+        <div class="card-header text-warning">
+          <h3>
+            <i class="fas fa-exclamation-triangle"></i>
+            Request Timed Out
+          </h3>
+        </div>
+
+        <div class="card-body">
+          <p class="card-text">The request has timed out.</p>
+          <p class="card-text"><b>Queue Name:</b>{{queueName}}</p>
+          <p class="card-text"><b>Ticket Number:</b>{{ticketNo}}</p>
+          <p class="card-text"><b>{{queue.generateTicketManager.ticketDateName}}:</b>{{date}}</p>
+          <p class="card-text"><b>Timeout Reason:</b>Server exception, please retry or contact the administrator.</p>
+          <button class="btn btn-primary"
+                  [routerLink]="['/member/home']">
+            View Existing Tickets
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

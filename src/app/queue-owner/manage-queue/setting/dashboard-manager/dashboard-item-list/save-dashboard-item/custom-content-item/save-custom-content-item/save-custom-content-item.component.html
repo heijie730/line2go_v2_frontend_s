@@ -1,0 +1,11 @@
+<app-base-save-item [dashboardItem]="dashboardItem">
+  <div class="mb-3 mt-3">
+    <label class="form-label">Component Content</label>
+    <input type="text" class="form-control" [(ngModel)]="dashboardItem.customContentSetting.content">
+  </div>
+  <div class="mb-3">
+    <label for="customRange3" class="form-label">Font Size</label>
+    <input type="range" [(ngModel)]="dashboardItem.customContentSetting.fontSize" class="form-range" min="0" max="50" step="1"
+           id="customRange3">
+  </div>
+</app-base-save-item>

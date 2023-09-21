@@ -1,0 +1,298 @@
+<app-base-save-item [dashboardItem]="dashboardItem">
+  <div class="mb-3">
+    <div class="input-group mb-3">
+      <span class="input-group-text">Skip Count</span>
+      <input type="number" class="form-control"
+             [(ngModel)]="dashboardItem.ticketTakenListSetting.skip">
+      <span class="input-group-text">Display Count</span>
+      <input type="number" class="form-control"
+             [(ngModel)]="dashboardItem.ticketTakenListSetting.size">
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <div class="accordion" id="exampleDate">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingDate">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseDate" aria-expanded="true" aria-controls="collapseDate">
+            Date Configuration
+          </button>
+        </h2>
+        <div id="collapseDate" class="accordion-collapse collapse" aria-labelledby="headingDate"
+             data-bs-parent="#exampleDate">
+          <div class="accordion-body">
+            <label for="dateType" class="form-label">Date Type</label>
+            <select id="dateType" class="form-select" aria-label="Default select example"
+                    [(ngModel)]="dashboardItem.ticketTakenListSetting.dateType.dateTypeEnum">
+              <option value="NOW">Current Date</option>
+              <option value="MANUAL_DAY">Specified Date</option>
+            </select>
+            <div class="mt-2" *ngIf="dashboardItem.ticketTakenListSetting.dateType.dateTypeEnum=='MANUAL_DAY'">
+              <label class="form-label">Specified Date</label>
+              <app-calendar-select [date]="dashboardItem.ticketTakenListSetting.dateType._date(queueVo.timeZone)"
+                                   (afterDateChecked)="afterDateChecked($event)"></app-calendar-select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="mb-3">
+    <div class="accordion" id="exampleTagMessage">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTagMessage">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseTagMessage" aria-expanded="true" aria-controls="collapseTagMessage">
+            Custom Message Configuration
+          </button>
+        </h2>
+        <div id="collapseTagMessage" class="accordion-collapse collapse" aria-labelledby="headingTagMessage"
+             data-bs-parent="#exampleTagMessage">
+          <div class="accordion-body">
+            <div class="list-container">
+              <ul class="list-group">
+                <li *ngFor="let item of dashboardItem.ticketTakenListSetting.tagMessages;index as i"
+                    class="list-group-item d-flex align-items-center">
+                  <div class="flex-grow-1">
+                    <span class="badge" [style.background-color]="tag.color"
+                          *ngFor="let tag of item.tags;">{{tag.tagContent}}</span>
+                  </div>
+                  <button class="btn btn-primary ml-2" (click)="updateTagMessageItem(item,i,tagMessageModal)">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button class="btn btn-danger ml-2" (click)="removeTagMessageItem(item)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <button class="mt-1 btn btn-sm btn-primary float-right" (click)="addTagMessageItem(tagMessageModal)">
+              <i class="bi bi-plus"></i> Add New
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="mb-3">
+    <div class="accordion" id="exampleDisplay">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingDisplay">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseDisplay" aria-expanded="true" aria-controls="collapseDisplay">
+            Display Rule Configuration
+          </button>
+        </h2>
+        <div id="collapseDisplay" class="accordion-collapse collapse" aria-labelledby="headingDisplay"
+             data-bs-parent="#exampleDisplay">
+          <div class="accordion-body">
+            <div class="list-container">
+              <ul class="list-group">
+                <li *ngFor="let item of dashboardItem.ticketTakenListSetting.displayRules;index as i"
+                    class="list-group-item d-flex align-items-center">
+                  <div class="flex-grow-1">
+                    <span class="badge" [style.background-color]="tag.color"
+                          *ngFor="let tag of item.tags;">{{tag.tagContent}}</span>
+                  </div>
+                  <button class="btn btn-primary ml-2" (click)="updateDisplayRuleItem(item,i)">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button class="btn btn-danger ml-2" (click)="removeDisplayRuleItem(item)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <button class="mt-1 btn btn-sm btn-primary float-right" (click)="addDisplayRuleItem()">
+              <i class="bi bi-plus"></i> Add New
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="mb-3">
+    <div class="accordion" id="exampleStyle">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingStyle">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapseStyle" aria-expanded="true" aria-controls="collapseStyle">
+            Style Configuration
+          </button>
+        </h2>
+        <div id="collapseStyle" class="accordion-collapse collapse" aria-labelledby="headingStyle"
+             data-bs-parent="#exampleStyle">
+          <div class="accordion-body">
+            <div class="mb-1">
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox"
+                       [(ngModel)]="dashboardItem.ticketTakenListSetting.tableBorder" id="enableStyleSwitch">
+                <label class="form-check-label" for="enableStyleSwitch">Table Row Border</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Tag Message -->
+<!--  <div class="modal fade" id="tagMessageModal" data-bs-backdrop="static" data-bs-keyboard="false"-->
+<!--       tabindex="-1" aria-labelledby="tagMessageModalLabel" aria-hidden="true">-->
+<!--    <div class="modal-dialog">-->
+<!--      <div class="modal-content">-->
+<!--        <div class="modal-header">-->
+<!--          <h1 class="modal-title fs-5"-->
+<!--              id="tagMessageModalLabel">{{currentTagMessageIndex != null ? 'Edit' : 'Add'}}-->
+<!--          </h1>-->
+<!--          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--        </div>-->
+<!--        <div class="modal-body">-->
+<!--          <div class="mb-3">-->
+<!--            <label class="form-label">Remark Message-->
+<!--              <app-tool-tip [content]="'This message will be used for tickets with matching tags.'"></app-tool-tip>-->
+<!--            </label>-->
+<!--            <input type="text" class="form-control" [(ngModel)]="currentTagMessage.message">-->
+<!--          </div>-->
+<!--          <div class="mb-3">-->
+<!--            <div class="accordion" id="matchTagExample">-->
+<!--              <div class="accordion-item">-->
+<!--                <h2 class="accordion-header" id="headingMatchTag">-->
+<!--                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"-->
+<!--                          data-bs-target="#collapseMatchTag" aria-expanded="true" aria-controls="collapseMatchTag">-->
+<!--                    Matching Tags Configuration-->
+<!--                  </button>-->
+<!--                </h2>-->
+<!--                <div id="collapseMatchTag" class="accordion-collapse collapse" aria-labelledby="headingMatchTag"-->
+<!--                     data-bs-parent="#matchTagExample">-->
+<!--                  <div class="accordion-body">-->
+<!--                    <label class="form-label">Matching Tags</label>-->
+<!--                    <div class="form-check" *ngFor="let tagVo of currentTagMessageTags;index as i">-->
+<!--                      <input class="form-check-input" type="checkbox" value="" id="color-check-tag-message-{{i}}"-->
+<!--                             [(ngModel)]="tagVo.checked">-->
+<!--                      <label class="form-check-label" for="color-check-tag-message-{{i}}">-->
+<!--                        <span class="badge" [style.background-color]="tagVo.color">{{tagVo.tagContent}}</span>-->
+<!--                      </label>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class=" mb-3">-->
+<!--            <app-voice-board-cast-->
+<!--              [voiceBoardCast]="currentTagMessage.voiceBoardCast"-->
+<!--              [queueVo]="queueVo"-->
+<!--            ></app-voice-board-cast>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="modal-footer">-->
+<!--          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+<!--          <button type="button" class="btn btn-primary"-->
+<!--                  (click)="submitTagMessage()">{{currentTagMessageIndex != null ? 'Save' : 'Add'}}</button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+  <ng-template #tagMessageModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5" id="tagMessageModalLabel">{{currentTagMessageIndex != null ? 'Edit' : 'Add'}}</h1>
+      <button type="button" class="btn-close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+
+      <div class="mb-3">
+        <label class="form-label">Remark Message
+          <app-tool-tip [content]="'This message will be used for tickets with matching tags.'"></app-tool-tip>
+        </label>
+        <input type="text" class="form-control" [(ngModel)]="currentTagMessage.message">
+      </div>
+      <div class="mb-3">
+        <div class="accordion" id="matchTagExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingMatchTag">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                      data-bs-target="#collapseMatchTag" aria-expanded="true" aria-controls="collapseMatchTag">
+                Matching Tags Configuration
+              </button>
+            </h2>
+            <div id="collapseMatchTag" class="accordion-collapse collapse" aria-labelledby="headingMatchTag"
+                 data-bs-parent="#matchTagExample">
+              <div class="accordion-body">
+                <label class="form-label">Matching Tags</label>
+                <div class="form-check" *ngFor="let tagVo of currentTagMessageTags;index as i">
+                  <input class="form-check-input" type="checkbox" value="" id="color-check-tag-message-{{i}}"
+                         [(ngModel)]="tagVo.checked">
+                  <label class="form-check-label" for="color-check-tag-message-{{i}}">
+                    <span class="badge" [style.background-color]="tagVo.color">{{tagVo.tagContent}}</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class=" mb-3">
+        <app-voice-board-cast
+          [voiceBoardCast]="currentTagMessage.voiceBoardCast"
+          [queueVo]="queueVo"
+        ></app-voice-board-cast>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="c('Save click')">Close</button>
+      <button type="button" class="btn btn-primary" (click)="submitTagMessage()">{{currentTagMessageIndex != null ? 'Save' : 'Add'}}</button>
+    </div>
+  </ng-template>
+
+  <!-- Modal for Display Rule -->
+  <div class="modal fade" id="displayRuleModal" data-bs-backdrop="static" data-bs-keyboard="false"
+       tabindex="-1" aria-labelledby="displayRuleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5"
+              id="displayRuleModalLabel">{{currentDisplayRuleIndex != null ? 'Edit' : 'Add'}}
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Display Option
+              <app-tool-tip [content]="'Show or hide tickets with matching tags'"></app-tool-tip>
+            </label>
+            <div class="input-group mb-3">
+              <select class="form-select" aria-label="Default select example"
+                      [(ngModel)]="currentDisplayRule.displayOptionEnum">
+                <option value="SHOW">Show</option>
+                <option value="HIDE">Hide</option>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Matching Tags</label>
+            <div class="form-check" *ngFor="let tagVo of currentDisplayRuleTags;index as i">
+              <input class="form-check-input" type="checkbox" value="" id="color-check-display-rule-{{i}}"
+                     [(ngModel)]="tagVo.checked">
+              <label class="form-check-label" for="color-check-display-rule-{{i}}">
+                <span class="badge" [style.background-color]="tagVo.color">{{tagVo.tagContent}}</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary"
+                  (click)="submitDisplayRule()">{{currentDisplayRuleIndex != null ? 'Save' : 'Add'}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-base-save-item>

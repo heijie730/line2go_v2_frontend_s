@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row border-bottom" style="padding-bottom: 0.8rem; text-align: center; padding-top: 1rem!important; position: sticky; top: 0; background-color: white; z-index: 1000">
+    <div class="col-2">
+      <i class="bi bi-chevron-left" [routerLink]="['/leader/member-options', queueId]"></i>
+    </div>
+    <div class="col text-center">
+      <h6 class="mb-0">Member Ticket Settings</h6>
+    </div>
+    <div class="col-2"></div>
+  </div>
+
+  <div class="row" *ngIf="ticketSetting">
+    <div class="mt-2" >
+      <p>Customize Member Ticket Settings</p>
+    </div>
+    <div class="mt-2">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox"
+               [(ngModel)]="ticketSetting.downloadTicket" id="enableDownloadSwitch" >
+        <label class="form-check-label" for="enableDownloadSwitch">Allow Members to Download Tickets</label>
+      </div>
+    </div>
+    <div class="mt-2">
+      <label for="memberAttachTypeEnum" class="form-label">Attachment Message Type<app-tool-tip [content]="'Whether to allow members to attach messages to tickets'"></app-tool-tip></label>
+      <select disabled id="memberAttachTypeEnum" class="form-select" aria-label="Default select example"
+              [(ngModel)]="ticketSetting.memberAttachTypeEnum">
+        <option value="NOT_ALLOW_ATTACH">Do Not Allow Attachment</option>
+        <option value="APPEND">Append to Existing Information</option>
+        <option value="REPLACEMENT">Replace Existing Information</option>
+        <option value="UPDATE">Edit Existing Message</option>
+      </select>
+    </div>
+    <div class="mt-2">
+      <label for="attachTypeEnum" class="form-label">Return Ticket Type</label>
+      <select id="attachTypeEnum" class="form-select" aria-label="Default select example"
+              [(ngModel)]="ticketSetting.refundTypeEnum">
+        <option value="NOT_ALLOW_REFUND">Do Not Allow Return</option>
+        <option value="REUSE_TICKET">Reuse Returned Tickets</option>
+        <option value="DELETE_TICKET">Directly Delete Returned Tickets</option>
+      </select>
+    </div>
+    <div class="text-center mt-4">
+      <button class="btn btn-primary" (click)="submit()">Submit</button>
+    </div>
+  </div>
+</div>

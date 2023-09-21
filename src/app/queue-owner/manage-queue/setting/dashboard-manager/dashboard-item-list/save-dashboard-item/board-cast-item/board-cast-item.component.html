@@ -1,0 +1,13 @@
+<app-base-draggable [dashboardEnum]="dashboardEnum"
+                    (deleteTrigger)="deleteTrigger.emit()"
+                    (editTrigger)="editTrigger.emit()"
+                    [dashboardItem]="dashboardItem">
+  <table class="table" style="position: absolute;top: 2rem;">
+    <tbody>
+    <tr [style.border-style]="dashboardItem.boardCastSetting.tableBorder?  'unset':'hidden'" *ngFor="let inform of boardCastLogVos;index as i" >
+      <td>{{inform.text}}</td>
+      <td>{{dateTimeUtils.HHmmDate(inform.createDateTime,queueVo.timeZone)}}</td>
+    </tr>
+    </tbody>
+  </table>
+</app-base-draggable>

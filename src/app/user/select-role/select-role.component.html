@@ -1,0 +1,112 @@
+<div class="container">
+    <div class="row border-bottom"
+         style="padding-bottom: 0.8rem;text-align: center;
+       padding-top: 1rem!important; position: sticky;top: 0;background-color: white;z-index: 1000">
+        <div class="col-2">
+            <i class="bi bi-box-arrow-left" (click)="logout()"></i>
+<!--            <i *ngIf="hasMultiAccounts" class="bi bi-chevron-left" [routerLink]="['/select-account']"></i>-->
+        </div>
+        <div class="col-1">
+            <!--      <app-notification-icon [homeUrl]="router.url"></app-notification-icon>-->
+        </div>
+        <div class="col text-center">
+            <h6 class="mb-0">Select Role</h6>
+        </div>
+        <div class="col-1">
+            <app-notification-icon [homeUrl]="router.url"></app-notification-icon>
+        </div>
+        <div class="col-2">
+            <div>
+              <i class="bi bi-plus-lg" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                <ul class="dropdown-menu">
+<!--                    <li><a class="dropdown-item" [routerLink]="['/advanced-options']">Advanced Options</a></li>-->
+                    <li><a class="dropdown-item" [routerLink]="['/user-profile']">Account</a></li>
+                  <li><a class="dropdown-item" [routerLink]="['/service-requests']">Service Requests</a></li>
+                  <li><a class="dropdown-item" [routerLink]="['/member/scan']">Scan</a></li>
+                  <li *ngIf="isSuperAdmin"><a class="dropdown-item" [routerLink]="['/super-admin']">Super Admin</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <h2 class="text-center mt-5 mb-5">Select Role</h2>
+    <div class="row">
+        <div>
+            <nav>
+                <div class="nav nav-tabs row-cols" id="nav-tab" role="tablist">
+                    <button  class="nav-link col active" id="nav-home-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-home"
+                            type="button" role="tab" aria-controls="nav-home" aria-selected="true">Leader
+                    </button>
+                    <button class="nav-link col" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
+                            type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Member
+                    </button>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div   class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"
+                     tabindex="0">
+                  <div class="list-group w-auto list-group-flush border-bottom">
+                    <a href="#" [routerLink]="['/leader/home']"
+                       class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                      <i class="fas fa-folder-open"></i>
+                      <div class="d-flex gap-2 w-100 justify-content-between">
+                        <div>
+                          <h6 class="mb-0">My Created Queues</h6>
+                        </div>
+                        <small class="opacity-50 text-nowrap">
+                          <i class="bi bi-chevron-compact-right"></i>
+                        </small>
+                      </div>
+                    </a>
+                  </div>
+
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"
+                     tabindex="0">
+                  <div class="list-group w-auto list-group-flush border-bottom">
+                    <a href="#" [routerLink]="['/member/home']"
+                       class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                      <i class="fas fa-ticket"></i>
+                      <div class="d-flex gap-2 w-100 justify-content-between">
+                        <div>
+                          <h6 class="mb-0">My Tickets</h6>
+                        </div>
+                        <small class="opacity-50 text-nowrap">
+                          <i class="bi bi-chevron-compact-right"></i>
+                        </small>
+                      </div>
+                    </a>
+                    <a href="#" [routerLink]="['/member/search-queues']" [queryParams]="{keyword:'',page:0,size:10 }"
+                       class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                      <i class="fas fa-search"></i>
+                      <div class="d-flex gap-2 w-100 justify-content-between">
+                        <div>
+                          <h6 class="mb-0">Search Queues</h6>
+                        </div>
+                        <small class="opacity-50 text-nowrap">
+                          <i class="bi bi-chevron-compact-right"></i>
+                        </small>
+                      </div>
+                    </a>
+                    <a href="#" [routerLink]="['/member/nearby-queues']" [queryParams]="{keyword:'',page:0,size:10,x:0,y:0 }"
+                       class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+                      <i class="fas fa-location"></i>
+                      <div class="d-flex gap-2 w-100 justify-content-between">
+                        <div>
+                          <h6 class="mb-0">Nearby Queues</h6>
+                        </div>
+                        <small class="opacity-50 text-nowrap">
+                          <i class="bi bi-chevron-compact-right"></i>
+                        </small>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+

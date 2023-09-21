@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row border-bottom"
+       style="padding-bottom: 0.8rem;text-align: center;
+       padding-top: 1rem!important; position: sticky;top: 0;background-color: white;z-index: 1000">
+    <div class="col-2">
+      <i class="bi bi-chevron-left" [routerLink]="['/super-admin/dashboard']"></i>
+    </div>
+    <div class="col text-center">
+      <h6 class="mb-0">队伍初始化组件</h6>
+    </div>
+    <div class="col-2">
+    </div>
+  </div>
+  <div class="row  border-bottom">
+    <label class="form-control">配置文件
+    </label>
+    <textarea style="background-color: antiquewhite;" class="form-control" [(ngModel)]="dashboardItemsJson"
+              rows="15" cols="50"></textarea>
+    <div class="btn-group mt-2 d-flex justify-content-center" role="group" aria-label="Basic example">
+      <button type="button" class="btn btn-success" (click)="submit();">保存</button>
+      <button type="button" class="btn btn-secondary" (click)="copyJson(); ">复制</button>
+    </div>
+  </div>
+</div>
+
+
+

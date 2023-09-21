@@ -1,0 +1,90 @@
+/* You can add global styles to this file, and also import other style files */
+/*@import '~quill/dist/quill.bubble.css';*/
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+@import '~quill/dist/quill.snow.css';
+@import 'flatpickr/dist/flatpickr.min.css';
+
+/*html, body { height: 100%; }*/
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+  touch-action: manipulation;}
+
+.example-box {
+  overflow-y: auto;
+  width: 200px;
+  height: 200px;
+  /*border: solid 1px #ccc;*/
+  color: rgba(0, 0, 0, 0.87);
+  cursor: move;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: #fff;
+  border-radius: 4px;
+  position: relative;
+  z-index: 1;
+  /*transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);*/
+  /*box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),*/
+  /*0 2px 2px 0 rgba(0, 0, 0, 0.14),*/
+  /*0 1px 5px 0 rgba(0, 0, 0, 0.12);*/
+}
+.box-border{
+  border: solid 1px #ccc;
+}
+.box-shadow{
+  transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+  0 2px 2px 0 rgba(0, 0, 0, 0.14),
+  0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+.example-box:active {
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+  0 8px 10px 1px rgba(0, 0, 0, 0.14),
+  0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.resizeable-element {
+  resize: both;
+  overflow: auto;
+}
+.example-handle  {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #ccc;
+  cursor: move;
+  width: 24px;
+  height: 24px;
+}
+.delete-handle {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: #ccc;
+  cursor: move;
+  width: 24px;
+  height: 24px;
+}
+.edit-handle {
+  position: absolute;
+  top: 10px;
+  /*left: 10px;*/
+  color: #ccc;
+  cursor: move;
+  width: 24px;
+  height: 24px;
+}
+/* For Chrome, Safari and Opera */
+.hideScroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* For Firefox */
+.hideScroll {
+  scrollbar-width: none;
+}
+
+/* For Internet Explorer and Edge */
+.hideScroll {
+  -ms-overflow-style: none;
+}

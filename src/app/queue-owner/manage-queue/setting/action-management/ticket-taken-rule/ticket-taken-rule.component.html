@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row border-bottom"
+       style="padding-bottom: 0.8rem; text-align: center;
+              padding-top: 1rem!important; position: sticky; top: 0;
+              background-color: white; z-index: 1000">
+    <div class="col-2">
+      <i class="bi bi-chevron-left" [routerLink]="['/leader/action-management', queueId]"></i>
+    </div>
+    <div class="col text-center">
+      <h6 class="mb-0">Ticket Taken Rule Templates</h6>
+    </div>
+    <div class="col-2">
+      <div>
+        <i class="bi bi-plus-lg" data-bs-toggle="dropdown" aria-expanded="false"></i>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" [routerLink]="['/leader/save-ticket-taken-rule-item', queueId]">Create New</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngFor="let item of items; index as i">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ item.title }}</h5>
+        <a href="#" class="card-link" [routerLink]="['/leader/save-ticket-taken-rule-item', queueId, i]">Edit</a>
+      </div>
+    </div>
+  </div>
+</div>

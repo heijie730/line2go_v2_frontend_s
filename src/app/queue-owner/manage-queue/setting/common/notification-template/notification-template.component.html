@@ -1,0 +1,13 @@
+<div *ngIf="baseNotification.template.templateName !== 'NONE'">
+  <div class="mb-2">
+    <div class="row mb-1" *ngFor="let param of baseNotification.template.notificationParams; index as i">
+      <span *ngIf="!param.editable">
+        {{ param.placeholder }} | {{ param.name }} | Example: {{ param.exampleValue }}
+      </span>
+      <div style="display: flex; align-items: center; white-space: nowrap;" *ngIf="param.editable">
+        <div>{{ param.placeholder }} | {{ param.name }} | Example:</div>
+        <input maxlength="20" class="form-control form-control-sm" [(ngModel)]="param.value">
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row border-bottom"
+       style="padding-bottom: 0.8rem;text-align: center;
+       padding-top: 1rem!important; position: sticky;top: 0;background-color: white;z-index: 1000">
+    <div class="col-2">
+      <i class="bi bi-chevron-left" [routerLink]="['/service-requests']"></i>
+    </div>
+
+    <div class="col text-center">
+      <h6 class="mb-0">Service Request Details</h6>
+    </div>
+    <div class="col-2">
+
+    </div>
+  </div>
+  <div class="mb-3">
+    <h2 class="mt-2  text-truncate"  style="width: 14rem">{{serviceRequestVo.title}}</h2>
+    <div class="communication-container">
+      <div *ngFor="let serviceRequestContent of serviceRequestVo.serviceRequestContents"
+           class="message"
+           [ngClass]="{'my-message': serviceRequestContent.contentRole === 'USER',
+                 'other-message': serviceRequestContent.contentRole === 'ADMIN'}">
+        <div class="message-time">{{dateTimeUtils.toCalendar(serviceRequestContent.dateTime)+' - '+(serviceRequestContent.contentRole === 'ADMIN'?'Administrator':serviceRequestVo.userName) }}</div>
+        <div class="message-content">{{ serviceRequestContent.content }}</div>
+      </div>
+    </div>
+    <div class="reply-container">
+      <textarea class="form-control" rows="3" [(ngModel)]="replyMessage"></textarea>
+      <button class="btn btn-primary mt-3 float-end" (click)="onReply()">Reply</button>
+    </div>
+  </div>
+
+</div>

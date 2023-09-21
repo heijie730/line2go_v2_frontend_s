@@ -1,0 +1,13 @@
+<div class="mb-3">
+  <input class="form-control" accept="image/*" type="file" id="formFile" (change)="uploadFile()" #fileInput>
+</div>
+<div class="mb-3" *ngIf="isUploading">
+  <span>Uploading...</span>
+</div>
+<div *ngIf="userImage&&!(userImage.fileName==''||userImage.fileName==null)" class="mb-3">
+  <span>{{ userImage.fileName }}</span>
+  <button style="margin-left: 4px" class="btn btn-sm btn-danger  delete-button" (click)="remove()">
+    <i class="bi bi-trash"></i>
+  </button>
+</div>
+

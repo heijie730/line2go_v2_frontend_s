@@ -1,0 +1,39 @@
+<div class="container" *ngIf="childQueue">
+  <div class="row border-bottom"
+       style="padding-bottom: 0.8rem; text-align: center;
+       padding-top: 1rem!important; position: sticky; top: 0; background-color: white; z-index: 1000">
+    <div class="col-2">
+      <i class="bi bi-chevron-left" [routerLink]="['/leader/child-queue-list', queueId]"></i>
+    </div>
+    <div class="col text-center">
+      <h6 class="mb-0">Edit Child Queue</h6>
+    </div>
+    <div class="col-2">
+      <div *ngIf="index">
+        <i class="bi bi-plus-lg" data-bs-toggle="dropdown" aria-expanded="false"></i>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" (click)="delete()">Delete</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="mb-3">
+      <label class="col-form-label">Queue Name</label>
+      <input disabled class="form-control" [(ngModel)]="childQueue.queueName">
+    </div>
+    <div class="mb-3">
+      <label class="col-form-label">Creation Time</label>
+      <input disabled class="form-control" [value]="dateTimeUtils.yyyyMMddHHmmss(childQueue.createDateTime,queueVo.timeZone)">
+    </div>
+    <div class="mb-3">
+      <label class="col-form-label">Remark</label>
+      <input type="text" class="form-control" [(ngModel)]="childQueue.remark">
+    </div>
+  </div>
+
+  <div class="d-grid gap-2 col-6 mx-auto mt-3 mb-3">
+    <button class="btn btn-primary" type="button" (click)="submit()">Confirm</button>
+  </div>
+</div>

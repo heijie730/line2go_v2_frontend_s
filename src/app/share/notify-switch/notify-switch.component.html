@@ -1,0 +1,21 @@
+<div class="form-check form-switch mt-4 mb-4" *ngIf="fcmToken">
+  <input class="form-check-input"
+         [checked]="supportBackground?fcmToken.enable:false" (click)="bgNotifyOnSwitch($event)"
+         [disabled]="!supportBackground"
+         type="checkbox" role="switch" id="flexSwitchCheckDefault">
+  <label class="form-check-label" for="flexSwitchCheckDefault">Background Notification({{fcmToken.deviceName}})<app-tool-tip *ngIf="!supportBackground" [content]="'Not Support Background Notification'"></app-tool-tip></label>
+</div>
+<!--<div class="form-check form-switch mt-4 mb-4" *ngIf="userVo">-->
+<!--  <input class="form-check-input"-->
+<!--         [checked]="supportForeground?userVo.fgNotify:false" (click)="fgNotifyOnSwitch($event)"-->
+<!--         [disabled]="!supportForeground"-->
+<!--         type="checkbox" role="switch" id="foregroundInput">-->
+<!--  <label class="form-check-label" for="foregroundInput">Foreground Notification<app-tool-tip *ngIf="!supportForeground" [content]="'Not Support Foreground Notification'"></app-tool-tip></label>-->
+<!--</div>-->
+<div class="form-check form-switch mt-4 mb-4" *ngIf="userVo">
+  <input class="form-check-input"
+         [checked]="userVo.email?userVo.emailNotify:false" (click)="emailNotifyOnSwitch($event)"
+         [disabled]="!userVo.email"
+         type="checkbox" role="switch" id="emailInput">
+  <label class="form-check-label" for="emailInput">Email Notification<app-tool-tip *ngIf="!userVo.email" [content]="'Have Not Bind Email'"></app-tool-tip></label>
+</div>

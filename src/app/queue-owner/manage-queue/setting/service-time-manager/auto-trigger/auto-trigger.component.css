@@ -1,0 +1,9 @@
+.delete-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+.add-button {
+  bottom: 0.5rem;
+  left: 0.5rem;
+}

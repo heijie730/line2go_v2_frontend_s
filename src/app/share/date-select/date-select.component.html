@@ -1,0 +1,4 @@
+<app-multiple-date *ngIf="dateRangeRulePo.dateRangeEnum=='MULTIPLE_DATE'"
+                   [dateRange]="dateRangeRulePo" [queueVo]="queueVo"></app-multiple-date>
+<app-range-date  *ngIf="dateRangeRulePo.dateRangeEnum=='RANGE_DATE'"
+                 [dateRangeRulePo]="dateRangeRulePo" [queueVo]="queueVo"></app-range-date>

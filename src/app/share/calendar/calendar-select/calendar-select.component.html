@@ -1,0 +1,10 @@
+<div class="input-group mb-3">
+  <input  #datePicker id="datePicker" class="form-control" style="background-color: #e9ecef;" type="text" [(ngModel)]="date"/>
+  <label for="datePicker" class="input-group-text" style="cursor: pointer;">
+    <i *ngIf="!date" class="bi bi-calendar"></i>
+    <i *ngIf="date" class="bi bi-calendar-check"></i>
+  </label>
+  <div *ngIf="!date" class="invalid-feedback" style="display: block">
+    请选择日期
+  </div>
+</div>

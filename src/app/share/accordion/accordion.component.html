@@ -1,0 +1,18 @@
+<div class="mb-3">
+  <div class="accordion" id="exampleAccordion{{id}}">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingAccordion{{id}}">
+        <button class="accordion-button {{show?'':'collapsed'}}" type="button" [attr.data-bs-toggle]="'collapse'"
+                [attr.data-bs-target]="'#collapse'+id" aria-expanded="true" [attr.aria-controls]="'collapse'+id">
+          {{header}}
+        </button>
+      </h2>
+      <div id="collapse{{id}}" class="accordion-collapse collapse {{show?'show':''}}" [attr.aria-labelledby]="'headingAccordion'+id"
+           [attr.data-bs-parent]="'#exampleAccordion'+id">
+        <div class="accordion-body">
+          <ng-content></ng-content>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

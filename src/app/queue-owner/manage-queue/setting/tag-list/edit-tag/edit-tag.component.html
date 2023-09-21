@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="row border-bottom"
+       style="padding-bottom: 0.8rem;text-align: center;
+       padding-top: 1rem!important; position: sticky;top: 0;background-color: white;z-index: 1000">
+    <div class="col-2">
+      <i class="bi bi-chevron-left" [routerLink]="['/leader/tag-list',queueId]"></i>
+    </div>
+    <div class="col text-center">
+      <h6 class="mb-0">Edit Tag</h6>
+    </div>
+    <div class="col-2">
+      <div *ngIf="index">
+        <i class="bi bi-plus-lg" data-bs-toggle="dropdown" aria-expanded="false"></i>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" (click)="delete()">Delete</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="mb-3">
+      <label for="exampleFormControlInput1" class="form-label">Tag Content</label>
+      <input type="text" class="form-control" id="exampleFormControlInput1" [(ngModel)]="tag.tagContent">
+    </div>
+    <div class="mb-3">
+      <div class="form-check form-switch">
+        <input  class="form-check-input" type="checkbox"
+                [(ngModel)]="tag.showInCanvas" id="enableNotificationSwitch">
+        <label class="form-check-label" for="enableNotificationSwitch">Show on management interface</label>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label"  for="exampleColorInput">Select Tag Color</label>
+      <input type="color" class="form-control form-control-color" id="exampleColorInput" [(ngModel)]="tag.color">
+
+      <!--      <div class="form-check" *ngFor="let tagColor of tagColors;">-->
+      <!--        <input class="form-check-input" id="id{{tagColor.color}}"-->
+      <!--               [(ngModel)]="tag.color" [value]="tagColor.color" type="radio" name="flexRadioDefault">-->
+      <!--        <div class="input-group">-->
+      <!--          <label class="badge text-bg-{{tagColor.color}}" for="id{{tagColor.color}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>-->
+      <!--        </div>-->
+      <!--      </div>-->
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Preview Tag</label>
+      <div>
+        <span class="badge" [style.background-color]="tag.color">{{tag.tagContent}}</span>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlInput2" class="form-label">Tag Details</label>
+      <input type="text" class="form-control" id="exampleFormControlInput2" [(ngModel)]="tag.tagDesc">
+    </div>
+  </div>
+</div>
+
+<div class="d-grid gap-2 col-6 mx-auto  mt-3 mb-3">
+  <button class="btn btn-primary" type="button" (click)="submit()">Save</button>
+</div>

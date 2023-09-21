@@ -1,0 +1,51 @@
+.communication-container {
+  margin-bottom: 11rem;
+}
+.reply-container textarea {
+  resize: vertical;
+}
+.reply-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  padding: 10px;
+  z-index: 999; /* 确保回复框位于其他内容之上 */
+}
+
+.message {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.message-time {
+  font-size: 12px;
+  color: #999;
+}
+
+.message-content {
+  padding: 10px;
+  border-radius: 10px;
+  word-break: break-word;
+  max-width: 80%;
+}
+
+.my-message .message-time {
+  align-self: flex-end;
+}
+
+.my-message .message-content {
+  background-color: #dcf8c6;
+  align-self: flex-end;
+}
+
+.other-message .message-time {
+  align-self: flex-start;
+}
+
+.other-message .message-content {
+  background-color: #f1f1f1;
+  align-self: flex-start;
+}

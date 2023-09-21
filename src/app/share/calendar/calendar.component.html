@@ -1,0 +1,42 @@
+<!-- Modal -->
+<div class="modal fade" id="{{id}}" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="calendarBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div style="text-align: -webkit-center;">
+        <div class=" d-block position-static p-2 shadow rounded-3">
+          <div class="d-grid gap-1">
+            <div class="cal">
+              <div class="cal-month">
+                <button class="btn cal-btn" type="button" (click)="addMonth(-1)">
+                  <i class="bi bi-arrow-left-short"></i>
+                </button>
+                <strong class="cal-month-name">{{monthStr}}</strong>
+                <button class="btn cal-btn" type="button" (click)="addMonth(1)">
+                  <i class="bi bi-arrow-right-short"></i>
+                </button>
+              </div>
+              <div class="cal-weekdays text-muted">
+                <div class="cal-weekday">一</div>
+                <div class="cal-weekday">二</div>
+                <div class="cal-weekday">三</div>
+                <div class="cal-weekday">四</div>
+                <div class="cal-weekday">五</div>
+                <div class="cal-weekday">六</div>
+                <div class="cal-weekday">日</div>
+              </div>
+              <div class="cal-days">
+                <button class="btn cal-btn" type="button"
+                        *ngFor="let date of dates;"
+                        [style]="toColor(date)"
+                        (click)="toDay(date)"
+                >{{date.getDate()}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

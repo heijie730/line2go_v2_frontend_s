@@ -1,0 +1,19 @@
+<app-base-draggable [dashboardEnum]="dashboardEnum"
+                    (deleteTrigger)="deleteTrigger.emit()"
+                    (editTrigger)="editTrigger.emit()"
+                    [dashboardItem]="dashboardItem">
+  <table class="table" style="position: absolute; top: 2rem;">
+    <thead>
+    <tr [style.border-style]="dashboardItem.ticketTakenListSetting.tableBorder ? 'unset' : 'hidden'">
+      <th scope="col">Ticket Number</th>
+      <th scope="col">Notes</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr [style.border-style]="dashboardItem.ticketTakenListSetting.tableBorder ? 'unset' : 'hidden'" *ngFor="let item of ticketVo.ticketVos; index as i">
+      <td>{{ item.ticketNo }}</td>
+      <td>{{ item.dashboardMessage }}</td>
+    </tr>
+    </tbody>
+  </table>
+</app-base-draggable>

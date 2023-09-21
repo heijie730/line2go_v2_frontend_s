@@ -1,0 +1,18 @@
+{
+  "name": "line2go",
+  "short_name": "line2go",
+  "theme_color": "#1976d2",
+  "background_color": "#fafafa",
+  "display": "standalone",
+  "scope": "./",
+  "start_url": "./",
+  "gcm_sender_id": "130139247784",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "330x330",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ]
+}

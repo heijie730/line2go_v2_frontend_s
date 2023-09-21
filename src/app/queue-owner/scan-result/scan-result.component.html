@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row border-bottom"
+       style="padding-bottom: 0.8rem;text-align: center;
+       padding-top: 1rem!important; position: sticky;top: 0;background-color: white;z-index: 1000">
+    <div class="col-2">
+      <!--      <i class="bi bi-chevron-left" [routerLink]="['/leader/action-management',queueId]"></i>-->
+    </div>
+    <div class="col text-center">
+      <h6 class="mb-0">Scan Result</h6>
+    </div>
+    <div class="col-2">
+    </div>
+  </div>
+  <div *ngIf="checkTicketVo">
+    <div *ngIf="checkTicketVo.ownQueue" class="alert alert-success" role="alert">
+      <p>You own this queue.</p>
+      <p>Queue Name: <a href="#" class="card-link" [routerLink]="[ '/leader/manage-queue',checkTicketVo.queueId,checkTicketVo.date]">{{ checkTicketVo.queueName }}</a></p>
+      <p>Scanned Ticket No: {{ checkTicketVo.ticketNo }}</p>
+      <p>Ticket Date: {{ checkTicketVo.date }}</p>
+    </div>
+    <div *ngIf="!checkTicketVo.ownQueue" class="alert alert-danger" role="alert">
+      <p>You do not own this queue.</p>
+      <p>Queue Name: {{ checkTicketVo.queueName }}</p>
+      <p>Scanned Ticket No: {{ checkTicketVo.ticketNo }}</p>
+      <p>Ticket Date: {{ checkTicketVo.date }}</p>
+    </div>
+  </div>
+</div>

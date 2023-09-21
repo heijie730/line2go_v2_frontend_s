@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row border-bottom"
+       style="padding-bottom: 0.8rem; text-align: center;
+       padding-top: 1rem!important; position: sticky; top: 0; background-color: white; z-index: 1000">
+    <div class="col-2">
+      <i class="bi bi-chevron-left" [routerLink]="['/leader/manual-trigger', queueId]"></i>
+    </div>
+    <div class="col text-center">
+      <h6 class="mb-0">{{title}}</h6>
+    </div>
+    <div class="col-2">
+      <div *ngIf="index">
+        <i class="bi bi-plus-lg" data-bs-toggle="dropdown" aria-expanded="false"></i>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" (click)="delete()">Delete</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="mt-3 mb-3">
+    <div class="text-center">
+      <div class="lead">When assigning tags to tickets, the tickets will be assigned corresponding service times.
+      </div>
+    </div>
+  </div>
+  <div class="mt-3">
+    <label class="form-label">Service Time</label>
+    <app-time-range *ngIf="currentItem" [timeRange]="currentItem"></app-time-range>
+  </div>
+  <div class="mt-3">
+    <label class="form-label">Assigned Tags <i class="fas fa-tags" style="margin-left: 0.3rem" [routerLink]="['/leader/tag-list', queueId]"></i></label>
+    <div class="form-check" *ngFor="let tagVo of tagVos; index as i">
+      <input class="form-check-input" type="checkbox" value="" id="color-check-{{i}}"
+             [(ngModel)]="tagVo.checked">
+      <label class="form-check-label" for="color-check-{{i}}">
+        <span class="badge" [style.background-color]="tagVo.color">{{tagVo.tagContent}}</span>
+      </label>
+    </div>
+  </div>
+</div>
+<div class="d-grid gap-2 col-6 mx-auto mt-3 mb-3">
+  <button class="btn btn-primary" type="button" (click)="submit()">Save</button>
+</div>

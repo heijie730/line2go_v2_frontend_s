@@ -1,0 +1,83 @@
+<div class="container">
+  <div class="row border-bottom"
+       style="padding-bottom: 0.8rem; text-align: center;
+              padding-top: 1rem!important; position: sticky; top: 0;
+              background-color: white; z-index: 1000">
+    <div class="col-2">
+      <i class="bi bi-chevron-left" [routerLink]="['/leader/action-management', queueId]"></i>
+    </div>
+    <div class="col text-center">
+      <h6 class="mb-0">Tickets Generation Rules</h6>
+    </div>
+    <div class="col-2">
+    </div>
+  </div>
+  <div class=" mt-3">
+    <p class="text-center">The following rules will be triggered when generate tickets.</p>
+    <p class="text-center"></p>
+  </div>
+  <div >
+    <label class="form-label">Tag Labels <app-tool-tip [content]="'When generate tickets, assign checked tags to the tickets'"></app-tool-tip></label>
+    <div class="form-check" *ngFor="let tagVo of tagVos">
+      <input class="form-check-input" type="checkbox" value="" id="{{tagVo.tagContent}}"
+             [(ngModel)]="tagVo.checked">
+      <label class="form-check-label" for="{{tagVo.tagContent}}">
+        <span class="badge" [style.background-color]="tagVo.color">{{tagVo.tagContent}}</span>
+      </label>
+    </div>
+  </div>
+  <div class=" mt-3">
+    <label class="form-label">Ticket Title Name</label>
+    <div class="input-group mb-3">
+      <input maxlength="10" type="text" class="form-control" [(ngModel)]="generateTicketManager.ticketTitleName">
+      <span class="input-group-text">
+        <i class="bi bi-ticket" (click)="previewTicket()"></i>
+      </span>
+    </div>
+  </div>
+  <div class=" mt-3">
+    <label class="form-label">Remark Name</label>
+    <div class="input-group mb-3">
+      <input maxlength="10" type="text" class="form-control" [(ngModel)]="generateTicketManager.ticketRemarkName">
+      <span class="input-group-text">
+        <i class="bi bi-ticket" (click)="previewTicket()"></i>
+      </span>
+    </div>
+  </div>
+  <div class=" mt-3">
+    <label class="form-label">Usage Date Name <app-tool-tip [content]="'Usage date for the generated ticket, fill according to your business needs. For example, if you\'re a hospital, you can use \'Appointment Date\'.'"></app-tool-tip></label>
+    <div class="input-group mb-3">
+      <input maxlength="10" type="text" class="form-control" [(ngModel)]="generateTicketManager.ticketDateName">
+      <span class="input-group-text">
+        <i class="bi bi-ticket" (click)="previewTicket()"></i>
+      </span>
+    </div>
+  </div>
+  <div class=" mt-3">
+    <label class="form-label">Ticket Remarks
+      <app-tool-tip [content]="'When generate tickets, this information will be attached to the ticket remarks'"></app-tool-tip>
+    </label>
+    <app-ticket-msg [ticketMsgManager]="generateTicketManager.ticketMsgManager"></app-ticket-msg>
+  </div>
+</div>
+<div class="d-grid gap-2 col-6 mx-auto mt-4 mb-3">
+  <button class="btn btn-primary" type="button" (click)="submit()">Save</button>
+</div>
+<div class="modal fade" id="attachMsgModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="attachMsgModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="attachMsgModalLabel">Preview Ticket</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <app-ticket-v2 [ticketVo]="exampleTicket" [queueVo]="queueVo">
+        </app-ticket-v2>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
