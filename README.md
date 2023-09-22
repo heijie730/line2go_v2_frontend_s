@@ -1,27 +1,37 @@
-# Frontend
+# line2go - Queue Management System
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.2.
+[Line2go](https://line2go.com) is an efficient queue management system built with Angular, WebFlux, and MongoDB. This repository contains the frontend code for line2go. You can find our backend repository [here](https://github.com/heijie730/line2go_v2_backend_s).
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### Frontend
 
-## Code scaffolding
+- Built with Angular and Bootstrap
+- Supports Social Login
+- Supports custom page layout with Angular Drag
+- Supports background notifications using Firebase and Service Workers
+- Supports Progressive Web Apps (PWA)
+- Supports custom rich text image uploads to cloud storage, and linking rich text to specified URLs
+- Supports HTML2Canvas for batch image downloads
+- Supports automatic interception of API requests and appending tokens
+- Supports lazy loading of modules
+- Supports incremental delay of scheduled tasks
+- Integrated with AWS CloudFront
+- Supports automatic deployment with AWS Pipeline
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Backend
 
-## Build
+- Uses WebFlux, MongoDB Reactive, AWS SQS, AWS SES, Firebase Messaging, and Google Auth
+- Supports JWT and access control
+- Uses the Easy Rule rule engine
+- Adopts asynchronous architecture, supports distributed multi-instance operation
+- Image links are integrated with AWS CloudFront, allowing for the specification of the validity period for image links
+- Supports automatic deployment with AWS Pipeline
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Website
 
-## Running unit tests
+Please visit our official website at [https://line2go.com](https://line2go.com).
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Contact
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+For any inquiries, feel free to reach out to us at [franklin.release@gmail.com](mailto:franklin.release@gmail.com).
